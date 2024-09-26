@@ -1,4 +1,4 @@
-import DoctorSearch from "@/app/_pages/doctor/search/SearchPage";
+import DoctorSearch from "@/app/_pages/doctor/SearchPage";
 import Unauthorized from "@/app/_pages/Unauthorized";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";

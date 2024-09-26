@@ -7,7 +7,7 @@ import { useConfirm } from "../_hooks/useConfirm";
 import PatientSearch from "./Appointment/PatientSearch";
 import { Patient } from "@prisma/client";
 import { patientAppointment } from "../api/appointments/route";
-import { isAppointment } from "../_pages/patient/appointments/PatientAppointments";
+import { isAppointment } from "../_pages/patient/PatientAppointments";
 import { event } from "./Calendar";
 
 type props = {

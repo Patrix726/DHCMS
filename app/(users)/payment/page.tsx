@@ -1,4 +1,4 @@
-import PatientPayment from "@/app/_pages/patient/payment/page";
+import PatientPayment from "@/app/_pages/patient/PatientInvoices";
 import Unauthorized from "@/app/_pages/Unauthorized";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";

@@ -1,6 +1,6 @@
-import DoctorAppointments from "@/app/_pages/doctor/appointments/page";
-import PatientAppointments from "@/app/_pages/patient/appointments/PatientAppointments";
-import ReceptionistAppointments from "@/app/_pages/receptionist/appointments/page";
+import DoctorAppointments from "@/app/_pages/doctor/DoctorAppointments";
+import PatientAppointments from "@/app/_pages/patient/PatientAppointments";
+import ReceptionistAppointments from "@/app/_pages/receptionist/ReceptionistAppointments";
 import Unauthorized from "@/app/_pages/Unauthorized";
 import { patientAppointment } from "@/app/api/appointments/route";
 import { options } from "@/app/api/auth/[...nextauth]/options";

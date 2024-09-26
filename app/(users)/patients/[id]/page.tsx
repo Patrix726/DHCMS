@@ -1,4 +1,4 @@
-import DoctorTreatmentPage from "@/app/_pages/doctor/patient/DoctorTreatmentPage";
+import DoctorTreatmentPage from "@/app/_pages/doctor/DoctorTreatmentPage";
 import Unauthorized from "@/app/_pages/Unauthorized";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";

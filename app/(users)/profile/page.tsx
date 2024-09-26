@@ -1,4 +1,4 @@
-import PatientProfile from "@/app/_pages/patient/profile/page";
+import PatientProfile from "@/app/_pages/patient/PatientProfile";
 import Unauthorized from "@/app/_pages/Unauthorized";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
