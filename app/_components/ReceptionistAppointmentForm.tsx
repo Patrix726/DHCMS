@@ -1,14 +1,14 @@
 import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import Popup from "./Popup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark, faClose } from "@fortawesome/free-solid-svg-icons";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 import AppointmentForm from "./AppointmentForm";
 import { useConfirm } from "../_hooks/useConfirm";
 import PatientSearch from "./Appointment/PatientSearch";
 import { Patient } from "@prisma/client";
-import { patientAppointment } from "../api/appointments/route";
 import { isAppointment } from "../_pages/patient/PatientAppointments";
 import { event } from "./Calendar";
+import { patientAppointment } from "../utils/db/appointment";
 
 type props = {
 	setEvents: Dispatch<SetStateAction<event[]>>;

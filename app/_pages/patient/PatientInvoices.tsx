@@ -1,7 +1,7 @@
 import DueInvoices from "@/app/_components/DueInvoices";
 import PaidInvoices from "@/app/_components/PaidInvoices";
 import { options } from "@/app/api/auth/[...nextauth]/options";
-import { invoices } from "@/app/api/patient/[id]/invoices/route";
+import { invoices } from "@/app/utils/db/invoice";
 import { getServerSession } from "next-auth";
 import { Fragment, ReactElement } from "react";
 

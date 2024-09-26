@@ -1,26 +1,8 @@
-import prisma from "@/app/client";
+import { getMedications } from "@/app/utils/db/medication";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
 	const name = req.nextUrl.searchParams.get("search") as string;
-	const medications = await prisma.medication.findMany({
-		where: {
-			OR: [
-				{
-					name: {
-						contains: name,
-						mode: "insensitive",
-					},
-				},
-				{
-					description: {
-						contains: name,
-						mode: "insensitive",
-					},
-				},
-			],
-		},
-		take: 5,
-	});
+	const medications = await getMedications(name);
 	return NextResponse.json(medications);
 }

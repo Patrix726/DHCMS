@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { patientAppointment } from "../api/appointments/route";
+import { patientAppointment } from "../utils/db/appointment";
 
 export function useAppointment(
 	initialAppointments: patientAppointment[]

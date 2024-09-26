@@ -2,12 +2,12 @@ import DoctorAppointments from "@/app/_pages/doctor/DoctorAppointments";
 import PatientAppointments from "@/app/_pages/patient/PatientAppointments";
 import ReceptionistAppointments from "@/app/_pages/receptionist/ReceptionistAppointments";
 import Unauthorized from "@/app/_pages/Unauthorized";
-import { patientAppointment } from "@/app/api/appointments/route";
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import { patientAppointment } from "@/app/utils/db/appointment";
 import { getHeader } from "@/app/utils/header";
 import { Department } from "@prisma/client";
 import { getServerSession } from "next-auth";
-import { headers } from "next/headers";
+
 export default async function Appointments() {
 	const user = await getServerSession(options);
 

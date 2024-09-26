@@ -1,7 +1,7 @@
 import PatientConsultation from "@/app/_components/PatientConsultation";
 import PatientDetails from "@/app/_components/PatientDetails";
 import { options } from "@/app/api/auth/[...nextauth]/options";
-import { patient } from "@/app/api/patient/[id]/route";
+import { patient } from "@/app/utils/db/patient";
 import { getServerSession } from "next-auth";
 import { Fragment, ReactNode } from "react";
 

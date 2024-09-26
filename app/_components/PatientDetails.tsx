@@ -1,7 +1,7 @@
 import malePic from "@/public/Male.svg";
 import femalePic from "@/public/Male.svg";
 import Image from "next/image";
-import { patient } from "../api/patient/[id]/route";
+import { patient } from "../utils/db/patient";
 const PatientDetails = ({ patient }: { patient: patient }) => {
 	return (
 		<div className="w-full bg-blue-700 text-white flex md:flex-row flex-col items-center p-5 rounded-3xl gap-4 ">

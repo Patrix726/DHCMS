@@ -4,11 +4,8 @@ import React, {
 	Dispatch,
 	RefObject,
 	SetStateAction,
-	useEffect,
 	useRef,
 } from "react";
-import { patientAppointment } from "../api/appointments/route";
-import moment from "moment";
 
 type props = {
 	departments: Department[];

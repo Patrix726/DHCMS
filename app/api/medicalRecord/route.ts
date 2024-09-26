@@ -1,5 +1,10 @@
 import { consultationData } from "@/app/_components/PatientConsultation";
 import prisma from "@/app/client";
+import { getDoctor } from "@/app/utils/db/doctor";
+import {
+	createMedicalRecord,
+	getPatientMedicalRecords,
+} from "@/app/utils/db/medicalRecord";
 import { Prisma } from "@prisma/client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { NextRequest, NextResponse } from "next/server";
@@ -17,80 +22,32 @@ export async function GET(req: NextRequest) {
 			message: "No patient id passed",
 			error: true,
 		});
-	const medicalRecords = await prisma.medicalRecord.findMany({
-		where: {
-			patientId: patientId,
-		},
-		select: {
-			doctor: {
-				select: {
-					staff: {
-						select: {
-							firstName: true,
-							middleName: true,
-						},
-					},
-				},
-			},
-			diagnosis: true,
-			appointment: {
-				select: {
-					datetime: true,
-				},
-			},
-			prescription: {
-				select: {
-					dosage: true,
-					duration: false,
-					instruction: true,
-					medication: true,
-				},
-			},
-		},
-		orderBy: {
-			appointment: {
-				datetime: "desc",
-			},
-		},
-	});
+	const medicalRecords = await getPatientMedicalRecords(patientId);
 	return NextResponse.json(medicalRecords);
 }
 export async function POST(req: NextRequest) {
 	const { patientId, doctorId, appointmentId, data }: reqBody =
 		await req.json();
-	const doctor = await prisma.doctor.findUnique({
-		where: {
-			staffId: doctorId,
-		},
-	});
-	try {
-		const medicalRecord = await prisma.medicalRecord.create({
-			data: {
-				diagnosis: data.diagnosis,
-				patientId: patientId,
-				doctorId: doctor?.id,
-				appointmentId: appointmentId,
-				medicalProcedures: data.examination,
-				prescription: {
-					createMany: {
-						data: data.prescription.map((pres) => {
-							return {
-								dosage: pres.dosage,
-								duration: pres.duration,
-								medicationId: pres.medication.id,
-								instruction: pres.instruction,
-								quantity: pres.quantity,
-							};
-						}),
-					},
-				},
+	const doctor = await getDoctor(doctorId);
+	if (typeof doctor?.id === "undefined") {
+		return NextResponse.json(
+			{
+				message: "Invalid Doctor Id. Unauthorized",
+				error: true,
 			},
+			{ status: 403 }
+		);
+	}
+	try {
+		const medicalRecord = await createMedicalRecord({
+			data,
+			appointmentId,
+			doctorId: doctor?.id,
+			patientId,
 		});
 		return NextResponse.json(medicalRecord);
 	} catch (e) {
-		console.log(e);
 		if (e instanceof PrismaClientKnownRequestError) {
-			console.log("been here");
 			if (e.code === "P2002") {
 				const target: any = e.meta?.target;
 				if (Array.from(target).includes("appointmentId")) {
@@ -115,32 +72,3 @@ export async function POST(req: NextRequest) {
 		);
 	}
 }
-
-export type medicalRecord = Prisma.MedicalRecordGetPayload<{
-	select: {
-		doctor: {
-			select: {
-				staff: {
-					select: {
-						firstName: true;
-						middleName: true;
-					};
-				};
-			};
-		};
-		diagnosis: true;
-		appointment: {
-			select: {
-				datetime: true;
-			};
-		};
-		prescription: {
-			select: {
-				dosage: true;
-				duration: true;
-				instruction: true;
-				medication: true;
-			};
-		};
-	};
-}>;

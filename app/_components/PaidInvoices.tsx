@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { invoices } from "../api/patient/[id]/invoices/route";
+import { invoices } from "../utils/db/invoice";
 import { faReceipt } from "@fortawesome/free-solid-svg-icons";
 
 const PaidInvoices = ({ paidInvoices }: { paidInvoices: invoices[] }) => {

@@ -1,6 +1,6 @@
 import Calendar from "@/app/_components/Calendar";
 import { options } from "@/app/api/auth/[...nextauth]/options";
-import { doctor } from "@/app/api/doctors/[dept]/route";
+import { doctor } from "@/app/utils/db/doctor";
 import { getServerSession } from "next-auth";
 
 export default async function ReceptionistAppointments() {

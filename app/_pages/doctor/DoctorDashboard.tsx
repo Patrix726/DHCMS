@@ -1,10 +1,9 @@
 import { faCalendarDay, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { doctorAppointment } from "@/app/api/appointments/route";
-import { headers } from "next/headers";
 import { ReactNode } from "react";
 import { getHeader } from "@/app/utils/header";
+import { doctorAppointment } from "@/app/utils/db/appointment";
 
 export default async function DoctorDashboard() {
 	const appointments: doctorAppointment[] = await fetch(

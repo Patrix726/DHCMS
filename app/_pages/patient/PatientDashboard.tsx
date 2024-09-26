@@ -7,9 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
-import { invoices } from "@/app/api/patient/[id]/invoices/route";
-import { patientAppointment } from "@/app/api/appointments/route";
-import { headers } from "next/headers";
+import { invoices } from "@/app/utils/db/invoice";
+import { patientAppointment } from "@/app/utils/db/appointment";
 import { ReactNode } from "react";
 import { getHeader } from "@/app/utils/header";
 

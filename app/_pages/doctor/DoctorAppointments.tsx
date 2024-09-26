@@ -1,6 +1,6 @@
 import Calendar, { event, resource } from "@/app/_components/Calendar";
-import { doctorAppointment } from "@/app/api/appointments/route";
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import { doctorAppointment } from "@/app/utils/db/appointment";
 import { getHeader } from "@/app/utils/header";
 import { getServerSession } from "next-auth";
 
