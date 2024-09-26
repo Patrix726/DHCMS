@@ -81,7 +81,7 @@ export async function getAvailableDoctor({
 			appointments: {
 				none: {
 					datetime: {
-						equals: date.toISOString().split("T")[0],
+						equals: date,
 					},
 				},
 			},

@@ -2,9 +2,13 @@ import { Prisma } from "@prisma/client";
 import prisma from "../../client";
 
 export async function getPatientAppointments(id: string) {
+	const date = new Date();
 	return prisma.appointment.findMany({
 		where: {
 			patientId: id,
+			datetime: {
+				gt: date,
+			},
 		},
 		include: {
 			doctor: {

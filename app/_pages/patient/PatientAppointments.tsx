@@ -161,91 +161,100 @@ export default function PatientAppointments({
 				</Popup>
 			}
 			<h1 className="text-2xl sm:text-4xl mb-5 w-full sm:w-3/4 text-left">
-				My Appointments
+				Upcoming Appointments
 			</h1>
-			<table className="w-full sm:w-3/4 text-sm sm:text-lg border border-blue-700">
-				<thead>
-					<tr className="text-xl p-14">
-						<th>Doctor</th>
-						<th>Date</th>
-						<th>Time</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					{Array.isArray(appointments) &&
-						appointments.map((app) => {
-							const doctor = app.doctor.staff;
-							return (
-								<tr key={app.id}>
-									<td className="w-3/5">
-										Dr.{" "}
-										{`${doctor.firstName} ${doctor.middleName}`}
-									</td>
-									<td className="text-center">
-										{new Date(
-											app.datetime
-										).toLocaleDateString()}
-									</td>
-									<td className="text-center">
-										{new Date(
-											app.datetime
-										).toLocaleTimeString()}
-									</td>
-									<td className="text-center">
-										<button
-											onClick={() => {
-												setEdit({
-													appId: app.id,
-													dept: app.doctor.staff
-														.department?.id,
-													docId: app.doctorId,
-												});
-												setPopup(PopupTypes.Update);
-											}}
-										>
-											<FontAwesomeIcon
-												icon={faEdit}
-												className="mr-4"
-											/>
-										</button>
-										<button
-											onClick={async () => {
-												const res = await confirm();
-												if (res) {
-													const removedApp: patientAppointment =
-														await fetch(
-															`${process.env.NEXT_PUBLIC_BASE_URL}/api/appointments`,
-															{
-																method: "DELETE",
-																body: JSON.stringify(
-																	app
-																),
-															}
-														).then((res) =>
-															res.json()
+			{appointments.length > 0 ? (
+				<table className="w-full sm:w-3/4 text-sm sm:text-lg border border-blue-700">
+					<thead>
+						<tr className="text-xl p-14">
+							<th>Doctor</th>
+							<th>Date</th>
+							<th>Time</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{Array.isArray(appointments) &&
+							appointments.map((app) => {
+								const doctor = app.doctor.staff;
+								return (
+									<tr key={app.id}>
+										<td className="w-3/5">
+											Dr.{" "}
+											{`${doctor.firstName} ${doctor.middleName}`}
+										</td>
+										<td className="text-center">
+											{new Date(
+												app.datetime
+											).toLocaleDateString()}
+										</td>
+										<td className="text-center">
+											{new Date(
+												app.datetime
+											).toLocaleTimeString()}
+										</td>
+										<td className="text-center">
+											<button
+												onClick={() => {
+													setEdit({
+														appId: app.id,
+														dept: app.doctor.staff
+															.department?.id,
+														docId: app.doctorId,
+													});
+													setPopup(PopupTypes.Update);
+												}}
+											>
+												<FontAwesomeIcon
+													icon={faEdit}
+													className="mr-4"
+												/>
+											</button>
+											<button
+												onClick={async () => {
+													const res = await confirm();
+													if (res) {
+														const removedApp: patientAppointment =
+															await fetch(
+																`${process.env.NEXT_PUBLIC_BASE_URL}/api/appointments`,
+																{
+																	method: "DELETE",
+																	body: JSON.stringify(
+																		app
+																	),
+																}
+															).then((res) =>
+																res.json()
+															);
+														setAppointments(
+															(prev) =>
+																prev.filter(
+																	(val) =>
+																		val.id !==
+																		removedApp.id
+																)
 														);
-													setAppointments((prev) =>
-														prev.filter(
-															(val) =>
-																val.id !==
-																removedApp.id
-														)
-													);
-												}
-											}}
-										>
-											<FontAwesomeIcon
-												icon={faTrash}
-												className="text-red-700"
-											/>
-										</button>
-									</td>
-								</tr>
-							);
-						})}
-				</tbody>
-			</table>
+													}
+												}}
+											>
+												<FontAwesomeIcon
+													icon={faTrash}
+													className="text-red-700"
+												/>
+											</button>
+										</td>
+									</tr>
+								);
+							})}
+					</tbody>
+				</table>
+			) : (
+				<div className="rounded-2xl flex justify-center items-center w-full sm:w-3/4 min-h-96 p-5 gap-5 h-3/4">
+					<p className="text-gray-600 text-lg">
+						No Appointments. Click the button to create one
+					</p>
+				</div>
+			)}
 			<div className="mt-8 w-3/4 flex justify-end mr-2">
 				<button
 					className="bg-blue-900 text-white px-3 py-2 rounded"
