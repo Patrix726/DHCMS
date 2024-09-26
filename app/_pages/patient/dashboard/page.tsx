@@ -11,25 +11,18 @@ import { invoices } from "@/app/api/patient/[id]/invoices/route";
 import { patientAppointment } from "@/app/api/appointments/route";
 import { headers } from "next/headers";
 import { ReactNode } from "react";
+import { getHeader } from "@/app/utils/header";
 
 export default async function PatientDashboard() {
 	const user = await getServerSession(options);
 	const invoiceRes = fetch(
-		`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/patient/${user?.user.id}/invoices`
+		`${process.env.NEXT_PUBLIC_BASE_URL}/api/patient/${user?.user.id}/invoices`
 	).then((res) => res.json());
-	const requestHeaders = headers();
-
-	const fetchHeaders = new Headers();
-	fetchHeaders.set(
-		"Authorization",
-		requestHeaders.get("Authorization") as string
-	);
-	fetchHeaders.set("Content-Type", "application/json");
 
 	const appointmentRes = fetch(
-		`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/appointments/`,
+		`${process.env.NEXT_PUBLIC_BASE_URL}/api/appointments/`,
 		{
-			headers: fetchHeaders,
+			headers: getHeader(),
 		}
 	).then((res) => res.json());
 	const [{ dueInvoices }, appointments]: [

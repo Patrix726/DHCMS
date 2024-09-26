@@ -50,7 +50,7 @@ const AppointmentForm = ({
 		const searchParams = new URLSearchParams({ date: date.toISOString() });
 
 		const res = await fetch(
-			`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/appointments/${
+			`${process.env.NEXT_PUBLIC_BASE_URL}/api/appointments/${
 				selectedDept.current?.value
 			}?${searchParams.toString()}`
 		);

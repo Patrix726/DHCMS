@@ -14,7 +14,7 @@ export default async function ReceptionistDashboard() {
 	const user = await getServerSession(options);
 	const deptId = user?.user.deptId as string;
 	const doctors: doctor[] = await fetch(
-		`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/doctors/${deptId}`
+		`${process.env.NEXT_PUBLIC_BASE_URL}/api/doctors/${deptId}`
 	).then((res) => res.json());
 	const resources = doctors.map((doctor) => ({
 		id: doctor.id,

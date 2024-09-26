@@ -96,9 +96,7 @@ const Calendar = ({ resources, initialEvents, fullWidth }: props) => {
 							appId: event.data.id,
 						});
 						router.push(
-							`https://${
-								process.env.NEXT_PUBLIC_VERCEL_URL
-							}/patients/${
+							`${process.env.NEXT_PUBLIC_BASE_URL}/patients/${
 								event.data.patientId
 							}?${searchParams.toString()}`
 						);

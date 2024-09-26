@@ -59,7 +59,7 @@ const PatientConsultation = ({
 
 	async function handleSave() {
 		const res = await fetch(
-			`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/medicalRecord`,
+			`${process.env.NEXT_PUBLIC_BASE_URL}/api/medicalRecord`,
 			{
 				method: "POST",
 				body: JSON.stringify({

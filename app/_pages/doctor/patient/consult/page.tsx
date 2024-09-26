@@ -10,7 +10,7 @@ export default async function DoctorTreatmentPage({
 	};
 }) {
 	const res = await fetch(
-		`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/patient/${params.id}`,
+		`${process.env.NEXT_PUBLIC_BASE_URL}/api/patient/${params.id}`,
 		{
 			cache: "no-cache",
 		}

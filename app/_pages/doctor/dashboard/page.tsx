@@ -4,20 +4,13 @@ import Link from "next/link";
 import { doctorAppointment } from "@/app/api/appointments/route";
 import { headers } from "next/headers";
 import { ReactNode } from "react";
+import { getHeader } from "@/app/utils/header";
 
 export default async function DoctorDashboard() {
-	const requestHeaders = headers();
-
-	const fetchHeaders = new Headers();
-	fetchHeaders.set(
-		"Authorization",
-		requestHeaders.get("Authorization") as string
-	);
-	fetchHeaders.set("Content-Type", "application/json");
 	const appointments: doctorAppointment[] = await fetch(
-		`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/appointments/`,
+		`${process.env.NEXT_PUBLIC_BASE_URL}/api/appointments/`,
 		{
-			headers: fetchHeaders,
+			headers: getHeader(),
 		}
 	).then((res) => res.json());
 	const recentApps = Array.isArray(appointments)
@@ -133,7 +126,7 @@ export default async function DoctorDashboard() {
 						</h1>
 						<div>
 							<Link
-								href="/search"
+								href="/patients"
 								className="text-sm md:text-lg lg:text-xl bg-blue-100 text-blue-700 rounded-md py-2 px-5 text-center font-semibold"
 							>
 								Search

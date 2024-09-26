@@ -4,6 +4,7 @@ import ReceptionistAppointments from "@/app/_pages/receptionist/appointments/pag
 import Unauthorized from "@/app/_pages/Unauthorized";
 import { patientAppointment } from "@/app/api/appointments/route";
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import { getHeader } from "@/app/utils/header";
 import { Department } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { headers } from "next/headers";
@@ -13,20 +14,13 @@ export default async function Appointments() {
 	switch (user?.user.role) {
 		case "Patient":
 			const departments: Department[] = await fetch(
-				`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/departments`
+				`${process.env.NEXT_PUBLIC_BASE_URL}/api/departments`
 			).then((res) => res.json());
-			const requestHeaders = headers();
 
-			const fetchHeaders = new Headers();
-			fetchHeaders.set(
-				"Authorization",
-				requestHeaders.get("Authorization") as string
-			);
-			fetchHeaders.set("Content-Type", "application/json");
 			const appointments: patientAppointment[] = await fetch(
-				`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/appointments`,
+				`${process.env.NEXT_PUBLIC_BASE_URL}/api/appointments`,
 				{
-					headers: fetchHeaders,
+					headers: getHeader(),
 				}
 			).then((res) => res.json());
 			return (
