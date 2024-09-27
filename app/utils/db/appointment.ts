@@ -178,3 +178,17 @@ export type doctorAppointment = Prisma.AppointmentGetPayload<{
 		};
 	};
 }>;
+
+export type patientDoctorappointments = Prisma.AppointmentGetPayload<{
+	include: {
+		patient: {
+			select: {
+				firstName: true;
+				middleName: true;
+				lastName: true;
+				mobileNumber: true;
+				sex: true;
+			};
+		};
+	};
+}>;

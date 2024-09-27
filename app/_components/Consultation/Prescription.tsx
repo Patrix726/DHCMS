@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import Popup from "../Popup";
 import { Medication } from "@prisma/client";
+import { SelectedElement } from "./Diagnosis";
 
 export type props = {
 	data: consultationData;
@@ -64,26 +65,20 @@ const Prescription = ({ data, setData }: props) => {
 
 	const patientPrescription = data.prescription.map((prescription, ind) => {
 		return (
-			<div
-				className="rounded-3xl px-5 py-2 bg-gray-200 flex items-center gap-3"
+			<SelectedElement
+				onClose={() => {
+					setData((prev) => {
+						return {
+							...prev,
+							prescription: prev.prescription.filter(
+								(pres, i) => i !== ind
+							),
+						};
+					});
+				}}
+				selected={prescription.medication.name}
 				key={ind}
-			>
-				<p>{prescription.medication?.name}</p>
-				<FontAwesomeIcon
-					icon={faClose}
-					onClick={() => {
-						setData((prev) => {
-							return {
-								...prev,
-								prescription: prev.prescription.filter(
-									(pres, i) => i !== ind
-								),
-							};
-						});
-					}}
-					className="cursor-pointer text-gray-600 mt-0.5"
-				/>
-			</div>
+			/>
 		);
 	});
 	return (
@@ -103,7 +98,6 @@ const Prescription = ({ data, setData }: props) => {
 				</div>
 				<div className="p-2 min-h-18 flex flex-col gap-2 mt-2">
 					<SearchBox
-						label="Medication"
 						name="prescription"
 						fetchUrl="medications"
 						setMedication={(med: Medication) => {

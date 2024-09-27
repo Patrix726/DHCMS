@@ -4,6 +4,7 @@ import Popup from "@/app/_components/Popup";
 import { useAppointment } from "@/app/_hooks/useAppointment";
 import { useConfirm } from "@/app/_hooks/useConfirm";
 import { patientAppointment } from "@/app/utils/db/appointment";
+import { patient } from "@/app/utils/db/patient";
 import {
 	faClose,
 	faEdit,
@@ -12,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Department } from "@prisma/client";
-import { useRef, useState } from "react";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
 
 enum PopupTypes {
 	Update,
@@ -25,6 +26,12 @@ type props = {
 	departments: Department[];
 	patientId: string;
 };
+type editValue = {
+	appId: string;
+	dept?: string;
+	datetime?: Date;
+	docId?: string;
+};
 
 export default function PatientAppointments({
 	initialAppointments,
@@ -36,12 +43,7 @@ export default function PatientAppointments({
 	const [appointments, setAppointments] = useAppointment(initialAppointments);
 	const { open, confirm, handleCancel, handleConfirm } = useConfirm();
 	const [timeSlots, setTimeSlots] = useState<Record<string, number>>();
-	const [edit, setEdit] = useState<{
-		appId: string;
-		dept?: string;
-		datetime?: Date;
-		docId?: string;
-	}>();
+	const [edit, setEdit] = useState<editValue>();
 	const form = useRef<HTMLFormElement>(null);
 	async function handleSubmit() {
 		if (form.current === null) {
@@ -85,81 +87,74 @@ export default function PatientAppointments({
 	}
 	return (
 		<main className="w-full mt-24 flex flex-col items-center gap-3 py-1 px-9 sm:px-5">
-			{
-				<Popup isOpen={popup !== PopupTypes.None}>
-					<div className="flex flex-col p-10 m-auto absolute inset-0 bg-white items-center justify-between gap-5 text-center">
-						{error && (
-							<div className="absolute top-0 left-0 w-full py-2 px-4 bg-red-300 rounded-t-md flex justify-between items-center">
-								<p className="text-red-950 w-full text-center">
-									{error}
-								</p>
-								<FontAwesomeIcon
-									icon={faClose}
-									onClick={() => setError("")}
-									className="cursor-pointer"
-								/>
-							</div>
-						)}
-						<AppointmentForm
-							departments={departments}
-							setTimeSlots={setTimeSlots}
-							timeSlots={timeSlots}
-							form={form}
-							defaultValue={edit}
-						/>
-
-						<div className="flex w-full justify-end gap-2">
-							<button
-								className="py-2 px-5 rounded-md text-xl border border-blue-950 text-blue-900"
-								onClick={() => {
-									form.current && form.current.reset();
-									setEdit(undefined);
-									setTimeSlots({});
-									setPopup(PopupTypes.None);
-								}}
-							>
-								Cancel
-							</button>
-							<button
-								className="py-2 px-5 rounded-md text-xl bg-blue-900 text-white"
-								onClick={handleSubmit}
-							>
-								Save
-							</button>
-						</div>
-					</div>
-				</Popup>
-			}
-			{
-				<Popup isOpen={open}>
-					<div className="flex flex-col p-10 m-auto absolute inset-0 bg-white items-center justify-around gap-5 text-center">
-						<FontAwesomeIcon
-							icon={faWarning}
-							className={`text-7xl text-orange-400`}
-						/>
-						<div className="text-gray-600 text-xl">
-							<p>
-								Are you sure you want to cancel this
-								appointment?
+			<Popup isOpen={popup !== PopupTypes.None}>
+				<div className="flex flex-col p-10 m-auto absolute inset-0 bg-white items-center justify-between gap-5 text-center">
+					{error && (
+						<div className="absolute top-0 left-0 w-full py-2 px-4 bg-red-300 rounded-t-md flex justify-between items-center">
+							<p className="text-red-950 w-full text-center">
+								{error}
 							</p>
+							<FontAwesomeIcon
+								icon={faClose}
+								onClick={() => setError("")}
+								className="cursor-pointer"
+							/>
 						</div>
-						<div className="flex w-full justify-end gap-2">
-							<button
-								className="py-2 px-5 rounded-md text-xl border border-blue-950 text-blue-900"
-								onClick={handleCancel}
-							>
-								No
-							</button>
-							<button
-								className="py-2 px-5 rounded-md text-xl bg-blue-900 text-white"
-								onClick={handleConfirm}
-							>
-								Yes
-							</button>
-						</div>
+					)}
+					<AppointmentForm
+						departments={departments}
+						setTimeSlots={setTimeSlots}
+						timeSlots={timeSlots}
+						form={form}
+						defaultValue={edit}
+					/>
+
+					<div className="flex w-full justify-end gap-2">
+						<button
+							className="py-2 px-5 rounded-md text-xl border border-blue-950 text-blue-900"
+							onClick={() => {
+								form.current && form.current.reset();
+								setEdit(undefined);
+								setTimeSlots({});
+								setPopup(PopupTypes.None);
+							}}
+						>
+							Cancel
+						</button>
+						<button
+							className="py-2 px-5 rounded-md text-xl bg-blue-900 text-white"
+							onClick={handleSubmit}
+						>
+							Save
+						</button>
 					</div>
-				</Popup>
-			}
+				</div>
+			</Popup>
+			<Popup isOpen={open}>
+				<div className="flex flex-col p-10 m-auto absolute inset-0 bg-white items-center justify-around gap-5 text-center">
+					<FontAwesomeIcon
+						icon={faWarning}
+						className={`text-7xl text-orange-400`}
+					/>
+					<div className="text-gray-600 text-xl">
+						<p>Are you sure you want to cancel this appointment?</p>
+					</div>
+					<div className="flex w-full justify-end gap-2">
+						<button
+							className="py-2 px-5 rounded-md text-xl border border-blue-950 text-blue-900"
+							onClick={handleCancel}
+						>
+							No
+						</button>
+						<button
+							className="py-2 px-5 rounded-md text-xl bg-blue-900 text-white"
+							onClick={handleConfirm}
+						>
+							Yes
+						</button>
+					</div>
+				</div>
+			</Popup>
 			<h1 className="text-2xl sm:text-4xl mb-5 w-full sm:w-3/4 text-left">
 				Upcoming Appointments
 			</h1>
@@ -176,74 +171,15 @@ export default function PatientAppointments({
 					<tbody>
 						{Array.isArray(appointments) &&
 							appointments.map((app) => {
-								const doctor = app.doctor.staff;
 								return (
-									<tr key={app.id}>
-										<td className="w-3/5">
-											Dr.{" "}
-											{`${doctor.firstName} ${doctor.middleName}`}
-										</td>
-										<td className="text-center">
-											{new Date(
-												app.datetime
-											).toLocaleDateString()}
-										</td>
-										<td className="text-center">
-											{new Date(
-												app.datetime
-											).toLocaleTimeString()}
-										</td>
-										<td className="text-center">
-											<button
-												onClick={() => {
-													setEdit({
-														appId: app.id,
-														dept: app.doctor.staff
-															.department?.id,
-														docId: app.doctorId,
-													});
-													setPopup(PopupTypes.Update);
-												}}
-											>
-												<FontAwesomeIcon
-													icon={faEdit}
-													className="mr-4"
-												/>
-											</button>
-											<button
-												onClick={async () => {
-													const res = await confirm();
-													if (res) {
-														const removedApp: patientAppointment =
-															await fetch(
-																`${process.env.NEXT_PUBLIC_BASE_URL}/api/appointments`,
-																{
-																	method: "DELETE",
-																	body: JSON.stringify(
-																		app
-																	),
-																}
-															).then((res) =>
-																res.json()
-															);
-														setAppointments(
-															(prev) =>
-																prev.filter(
-																	(val) =>
-																		val.id !==
-																		removedApp.id
-																)
-														);
-													}
-												}}
-											>
-												<FontAwesomeIcon
-													icon={faTrash}
-													className="text-red-700"
-												/>
-											</button>
-										</td>
-									</tr>
+									<AppointmentComponent
+										app={app}
+										setAppointments={setAppointments}
+										setEdit={setEdit}
+										setPopup={setPopup}
+										key={app.id}
+										confirm={confirm}
+									/>
 								);
 							})}
 					</tbody>
@@ -271,4 +207,66 @@ export const isAppointment = (
 	x: patientAppointment | { error: string }
 ): x is patientAppointment => {
 	return (x as patientAppointment).id !== undefined;
+};
+const AppointmentComponent = ({
+	app,
+	setEdit,
+	setAppointments,
+	setPopup,
+	confirm,
+}: {
+	app: patientAppointment;
+	setEdit: Dispatch<SetStateAction<editValue | undefined>>;
+	setAppointments: Dispatch<SetStateAction<patientAppointment[]>>;
+	setPopup: Dispatch<SetStateAction<PopupTypes>>;
+	confirm: () => Promise<unknown>;
+}) => {
+	const doctor = app.doctor.staff;
+
+	return (
+		<tr key={app.id}>
+			<td className="w-3/5">
+				Dr. {`${doctor.firstName} ${doctor.middleName}`}
+			</td>
+			<td className="text-center">
+				{new Date(app.datetime).toLocaleDateString()}
+			</td>
+			<td className="text-center">
+				{new Date(app.datetime).toLocaleTimeString()}
+			</td>
+			<td className="text-center">
+				<button
+					onClick={() => {
+						setEdit({
+							appId: app.id,
+							dept: app.doctor.staff.department?.id,
+							docId: app.doctorId,
+						});
+						setPopup(PopupTypes.Update);
+					}}
+				>
+					<FontAwesomeIcon icon={faEdit} className="mr-4" />
+				</button>
+				<button
+					onClick={async () => {
+						const res = await confirm();
+						if (res) {
+							const removedApp: patientAppointment = await fetch(
+								`${process.env.NEXT_PUBLIC_BASE_URL}/api/appointments`,
+								{
+									method: "DELETE",
+									body: JSON.stringify(app),
+								}
+							).then((res) => res.json());
+							setAppointments((prev) =>
+								prev.filter((val) => val.id !== removedApp.id)
+							);
+						}
+					}}
+				>
+					<FontAwesomeIcon icon={faTrash} className="text-red-700" />
+				</button>
+			</td>
+		</tr>
+	);
 };

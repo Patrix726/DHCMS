@@ -6,14 +6,17 @@ import { getServerSession } from "next-auth";
 export default async function ReceptionistAppointments() {
 	const user = await getServerSession(options);
 	const deptId = user?.user.deptId as string;
+
 	const doctors: doctor[] = await fetch(
 		`${process.env.NEXT_PUBLIC_BASE_URL}/api/doctors/${deptId}`
 	).then((res) => res.json());
+
 	const resources = doctors.map((doctor) => ({
 		id: doctor.id,
 		title: `Dr. ${doctor.staff.firstName} ${doctor.staff.middleName}`,
 		deptId: deptId,
 	}));
+
 	const events = doctors.flatMap((doctor) => {
 		return doctor.appointments.map((app) => {
 			const startTime = new Date(app.datetime);

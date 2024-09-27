@@ -9,6 +9,7 @@ import Calendar from "@/app/_components/Calendar";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { doctor } from "@/app/utils/db/doctor";
+import { patientDoctorappointments } from "@/app/utils/db/appointment";
 
 export default async function ReceptionistDashboard() {
 	const user = await getServerSession(options);
@@ -16,11 +17,13 @@ export default async function ReceptionistDashboard() {
 	const doctors: doctor[] = await fetch(
 		`${process.env.NEXT_PUBLIC_BASE_URL}/api/doctors/${deptId}`
 	).then((res) => res.json());
+
 	const resources = doctors.map((doctor) => ({
 		id: doctor.id,
 		title: `Dr. ${doctor.staff.firstName} ${doctor.staff.middleName}`,
 		deptId: deptId,
 	}));
+
 	const events = doctors.flatMap((doctor) => {
 		return doctor.appointments.map((app) => {
 			const startTime = new Date(app.datetime);
@@ -39,56 +42,18 @@ export default async function ReceptionistDashboard() {
 			};
 		});
 	});
+
 	const upcomingApps = doctors
 		.flatMap((doctor) => {
 			return doctor.appointments.map((app) => {
 				const datetime = new Date(app.datetime);
-				const now = new Date();
 				const component = (
-					<div
-						className="rounded-md flex overflow-hidden"
+					<UpcomingApps
+						app={app}
+						appDateTime={datetime}
+						doctor={doctor}
 						key={app.id}
-					>
-						<div className="flex flex-col bg-blue-100 text-blue-900 w-1/2 p-4 gap-2">
-							<h1 className="text-xl font-semibold">{`${
-								app.patient.sex === "MALE" ? "Mr." : "Mrs./Ms."
-							} ${app.patient.firstName} ${
-								app.patient.middleName
-							}`}</h1>
-							<div className="flex gap-2 items-center text-gray-800">
-								<FontAwesomeIcon icon={faPhone} />
-								<p>{app.patient.mobileNumber}</p>
-							</div>
-						</div>
-						<div className="flex flex-col bg-blue-900 text-white p-4 gap-2 w-1/2">
-							<h1 className="text-xl font-semibold">
-								Dr.{" "}
-								{`${doctor.staff.firstName} ${doctor.staff.middleName}`}
-							</h1>
-							<div className="flex text-gray-200 justify-between flex-wrap">
-								<div className="flex gap-2 items-center">
-									<FontAwesomeIcon icon={faCalendarDay} />
-									<p>
-										{datetime.getDate() === now.getDate()
-											? "Today"
-											: datetime.getDate() ===
-											  now.getDate() + 1
-											? "Tomorrow"
-											: datetime.toLocaleDateString()}
-									</p>
-								</div>
-								<div className="flex gap-2 items-center">
-									<FontAwesomeIcon icon={faClock} />
-									<p>
-										{datetime.toLocaleTimeString("en-US", {
-											hour: "2-digit",
-											minute: "2-digit",
-										})}
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
+					/>
 				);
 				return { component, datetime };
 			});
@@ -155,3 +120,54 @@ export default async function ReceptionistDashboard() {
 		</main>
 	);
 }
+const UpcomingApps = ({
+	app,
+	doctor,
+	appDateTime,
+}: {
+	app: patientDoctorappointments;
+	doctor: doctor;
+	appDateTime: Date;
+}) => {
+	const now = new Date();
+
+	return (
+		<div className="rounded-md flex overflow-hidden" key={app.id}>
+			<div className="flex flex-col bg-blue-100 text-blue-900 w-1/2 p-4 gap-2">
+				<h1 className="text-xl font-semibold">{`${
+					app.patient.sex === "MALE" ? "Mr." : "Mrs./Ms."
+				} ${app.patient.firstName} ${app.patient.middleName}`}</h1>
+				<div className="flex gap-2 items-center text-gray-800">
+					<FontAwesomeIcon icon={faPhone} />
+					<p>{app.patient.mobileNumber}</p>
+				</div>
+			</div>
+			<div className="flex flex-col bg-blue-900 text-white p-4 gap-2 w-1/2">
+				<h1 className="text-xl font-semibold">
+					Dr. {`${doctor.staff.firstName} ${doctor.staff.middleName}`}
+				</h1>
+				<div className="flex text-gray-200 justify-between flex-wrap">
+					<div className="flex gap-2 items-center">
+						<FontAwesomeIcon icon={faCalendarDay} />
+						<p>
+							{appDateTime.getDate() === now.getDate()
+								? "Today"
+								: appDateTime.getDate() === now.getDate() + 1
+								? "Tomorrow"
+								: appDateTime.toLocaleDateString()}
+						</p>
+					</div>
+					<div className="flex gap-2 items-center">
+						<FontAwesomeIcon icon={faClock} />
+						<p>
+							{appDateTime.toLocaleTimeString("en-US", {
+								hour: "2-digit",
+								minute: "2-digit",
+							})}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};

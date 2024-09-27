@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { consultationData } from "../PatientConsultation";
+import { SelectedElement } from "./Diagnosis";
 
 type props = {
 	data: consultationData;
@@ -25,33 +26,27 @@ const Symptoms = ({ data, setData, handleSubmit }: props) => {
 	];
 	const patientSymptoms = Array.from(data.symptoms).map((symptom, ind) => {
 		return (
-			<div
-				className="rounded-3xl px-5 py-2 bg-gray-200 flex items-center gap-3"
+			<SelectedElement
+				onClose={() => {
+					setData((prev) => {
+						const newSet = new Set(prev.symptoms);
+						newSet.delete(symptom);
+						return {
+							...prev,
+							symptoms: newSet,
+						};
+					});
+				}}
+				selected={symptom}
 				key={ind}
-			>
-				<p>{symptom}</p>
-				<FontAwesomeIcon
-					icon={faClose}
-					onClick={() => {
-						setData((prev) => {
-							const newSet = new Set(prev.symptoms);
-							newSet.delete(symptom);
-							return {
-								...prev,
-								symptoms: newSet,
-							};
-						});
-					}}
-					className="cursor-pointer text-gray-600 mt-0.5"
-				/>
-			</div>
+			/>
 		);
 	});
 	return (
 		<div className="py-3 px-2 h-48 flex flex-col gap-4 ">
 			<div className="p-2 min-h-18 flex flex-col gap-2">
 				<p className="py-2">Patient&apos;s Symptoms</p>
-				{data.symptoms.size > 0 ? (
+				{patientSymptoms.length > 0 ? (
 					<div className="flex flex-wrap gap-2">
 						{patientSymptoms}
 					</div>

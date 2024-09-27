@@ -10,40 +10,19 @@ const Review = ({
 	handleSave: MouseEventHandler<HTMLButtonElement>;
 }) => {
 	const patientSymptoms = Array.from(data.symptoms).map((symptom, ind) => {
-		return (
-			<div
-				className="rounded-3xl px-5 py-2 bg-gray-200 flex items-center gap-3"
-				key={ind}
-			>
-				<p>{symptom}</p>
-			</div>
-		);
+		return <ReviewElement value={symptom} key={ind} />;
 	});
 	const patientDiagnosis = data.diagnosis.map((diagnosis, ind) => {
-		return (
-			<div
-				className="rounded-3xl px-5 py-2 bg-gray-200 flex items-center gap-3"
-				key={ind}
-			>
-				<p>{diagnosis}</p>
-			</div>
-		);
+		return <ReviewElement value={diagnosis} key={ind} />;
 	});
 	const patientPrescription = data.prescription.map((prescription, ind) => {
-		return (
-			<div
-				className="rounded-3xl px-5 py-2 bg-gray-200 flex items-center gap-3"
-				key={ind}
-			>
-				<p>{prescription.medication?.name}</p>
-			</div>
-		);
+		return <ReviewElement value={prescription.medication.name} key={ind} />;
 	});
 	return (
 		<div className="py-3 px-2 h-48 flex flex-col gap-4">
 			<div className="flex flex-col gap-2">
 				<h1 className="border-b border-gray-400">Symptoms</h1>
-				{data.symptoms.size > 0 ? (
+				{patientSymptoms.length > 0 ? (
 					<div className="flex flex-wrap gap-2">
 						{patientSymptoms}
 					</div>
@@ -90,7 +69,7 @@ const Review = ({
 			</div>
 			<div className="flex flex-col gap-2">
 				<h1 className="border-b border-gray-400">Diagnosis</h1>
-				{data.diagnosis.length > 0 ? (
+				{patientDiagnosis.length > 0 ? (
 					<div className="flex flex-wrap gap-2">
 						{patientDiagnosis}
 					</div>
@@ -100,7 +79,7 @@ const Review = ({
 			</div>
 			<div className="flex flex-col gap-2">
 				<h1 className="border-b border-gray-400">Prescription</h1>
-				{data.prescription.length > 0 ? (
+				{patientPrescription.length > 0 ? (
 					<div className="flex flex-wrap gap-2">
 						{patientPrescription}
 					</div>
@@ -117,6 +96,13 @@ const Review = ({
 					Finish
 				</button>
 			</div>
+		</div>
+	);
+};
+const ReviewElement = ({ value }: { value: string }) => {
+	return (
+		<div className="rounded-3xl px-5 py-2 bg-gray-200 flex items-center gap-3">
+			<p>{value}</p>
 		</div>
 	);
 };

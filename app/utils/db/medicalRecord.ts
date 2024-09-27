@@ -103,3 +103,9 @@ export type medicalRecord = Prisma.MedicalRecordGetPayload<{
 		};
 	};
 }>;
+
+export type prescription = Prisma.PrescriptionGetPayload<{
+	include: {
+		medication: true;
+	};
+}>;

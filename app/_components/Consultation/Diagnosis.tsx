@@ -1,4 +1,3 @@
-import React from "react";
 import { props } from "./Prescription";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
@@ -7,26 +6,20 @@ import SearchBox from "../SearchBox";
 const Diagnosis = ({ data, setData }: props) => {
 	const patientDiagnosis = data.diagnosis.map((diagnosis, ind) => {
 		return (
-			<div
-				className="rounded-3xl px-5 py-2 bg-gray-200 flex items-center gap-3"
+			<SelectedElement
+				selected={diagnosis}
+				onClose={() => {
+					setData((prev) => {
+						return {
+							...prev,
+							diagnosis: prev.diagnosis.filter(
+								(diag, i) => i !== ind
+							),
+						};
+					});
+				}}
 				key={ind}
-			>
-				<p>{diagnosis}</p>
-				<FontAwesomeIcon
-					icon={faClose}
-					onClick={() => {
-						setData((prev) => {
-							return {
-								...prev,
-								diagnosis: prev.diagnosis.filter(
-									(diag, i) => i !== ind
-								),
-							};
-						});
-					}}
-					className="cursor-pointer text-gray-600 mt-0.5"
-				/>
-			</div>
+			/>
 		);
 	});
 	return (
@@ -43,13 +36,30 @@ const Diagnosis = ({ data, setData }: props) => {
 			</div>
 			<div className="p-2 min-h-18 flex flex-col gap-2 mt-2">
 				<SearchBox
-					label="Diagnosis"
 					name="diagnosis"
 					fetchUrl="diseases"
 					setData={setData}
 					placeholder="Search for diagnosis ..."
 				/>
 			</div>
+		</div>
+	);
+};
+export const SelectedElement = ({
+	selected,
+	onClose,
+}: {
+	selected: string;
+	onClose: () => void;
+}) => {
+	return (
+		<div className="rounded-3xl px-5 py-2 bg-gray-200 flex items-center gap-3">
+			<p>{selected}</p>
+			<FontAwesomeIcon
+				icon={faClose}
+				onClick={onClose}
+				className="cursor-pointer text-gray-600 mt-0.5"
+			/>
 		</div>
 	);
 };

@@ -2,7 +2,6 @@ import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { consultationData } from "./PatientConsultation";
 import { Diseases, Medication } from "@prisma/client";
 type props = {
-	label: string;
 	name: "diagnosis" | "prescription";
 	fetchUrl: string;
 	placeholder?: string;
@@ -10,7 +9,6 @@ type props = {
 	setMedication?: (med: Medication) => void;
 };
 const SearchBox = ({
-	label,
 	name,
 	setData,
 	placeholder,
@@ -30,7 +28,7 @@ const SearchBox = ({
 			const res = await fetch(
 				`${
 					process.env.NEXT_PUBLIC_BASE_URL
-				}api/${fetchUrl}?${searchParams.toString()}`
+				}/api/${fetchUrl}?${searchParams.toString()}`
 			);
 			const data = await res.json();
 			setOptions(data);
