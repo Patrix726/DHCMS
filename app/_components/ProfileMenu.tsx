@@ -57,14 +57,12 @@ const ProfileMenu = ({ user }: { user: Session }) => {
 					</div>
 				</div>
 			)}
-			{
-				<ChangePasswordForm
-					isOpen={popup}
-					setOpen={setPopup}
-					key={popupKey}
-					onReset={() => setKey((prev) => prev + 1)}
-				/>
-			}
+			<ChangePasswordForm
+				isOpen={popup}
+				setOpen={setPopup}
+				key={popupKey}
+				onReset={() => setKey((prev) => prev + 1)}
+			/>
 		</div>
 	);
 };

@@ -23,7 +23,6 @@ const Aside = ({ role }: { role: string }) => {
 	const path = usePathname();
 	const [open, setOpen] = useState(false);
 
-	// if (role !== "patient" && role !== "doctor" && role !== "receptionist") {
 	if (!isValidRole(role)) {
 		return;
 	}

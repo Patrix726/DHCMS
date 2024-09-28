@@ -49,7 +49,7 @@ export default function SignIn({
 				>
 					Forgot Password?
 				</Link>
-				<button className="mt-6 px-4 py-3 rounded-3xl bg-teal-700 text-white w-full mx-2">
+				<button className="mt-6 px-4 py-3 rounded-3xl bg-blue-700 text-white w-full mx-2">
 					Log in
 				</button>
 			</form>

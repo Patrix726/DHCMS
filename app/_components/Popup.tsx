@@ -1,6 +1,7 @@
 "use client";
 
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { usePopup } from "../_hooks/usePopup";
 
 type props = {
 	isOpen: boolean;
@@ -16,18 +17,7 @@ const Popup = ({
 	noMinHeight,
 	children,
 }: props) => {
-	const modalRef = useRef<HTMLDialogElement | null>(null);
-
-	useEffect(() => {
-		const modalElement = modalRef.current;
-		if (modalElement) {
-			if (isOpen) {
-				modalElement.showModal();
-			} else {
-				modalElement.close();
-			}
-		}
-	}, [isOpen]);
+	const modalRef = usePopup(isOpen);
 	return (
 		<dialog
 			ref={modalRef}

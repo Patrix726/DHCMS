@@ -24,43 +24,46 @@ const PatientDetails = ({ patient }: { patient: patient }) => {
 				</div>
 			</div>
 			<div className="grid grid-cols-3 w-full ml-4 gap-4">
-				<div className="flex flex-col">
-					<p>Height</p>
-					<p className="font-bold">
-						{patient.patientRecord?.height || "Unknown"}
-					</p>
-				</div>
-				<div className="flex flex-col">
-					<p>Weight</p>
-					<p className="font-bold">
-						{patient.patientRecord?.weight || "Unknown"}
-					</p>
-				</div>
-				<div className="flex flex-col">
-					<p>Blood Type</p>
-					<p className="font-bold">
-						{patient.patientRecord?.bloodType || "Unknown"}
-					</p>
-				</div>
-				<div className="flex flex-col">
-					<p>Allergies</p>
-					<p className="font-bold">
-						{patient.patientRecord?.allergies || "Unknown"}
-					</p>
-				</div>
-				<div className="flex flex-col">
-					<p>Family History</p>
-					<p className="font-bold">
-						{patient.patientRecord?.familyHistory || "Unknown"}
-					</p>
-				</div>
-				<div className="flex flex-col">
-					<p>Condition</p>
-					<p className="font-bold">
-						{patient.patientRecord?.patientCondition || "Unknown"}
-					</p>
-				</div>
+				<PatientDescription
+					label="Height"
+					value={patient.patientRecord?.height}
+				/>
+				<PatientDescription
+					label="Weight"
+					value={patient.patientRecord?.weight}
+				/>
+				<PatientDescription
+					label="Blood Type"
+					value={patient.patientRecord?.bloodType}
+				/>
+				<PatientDescription
+					label="Allergies"
+					value={patient.patientRecord?.allergies.join(", ")}
+				/>
+				<PatientDescription
+					label="Family History"
+					value={patient.patientRecord?.familyHistory}
+				/>
+				<PatientDescription
+					label="Condition"
+					value={patient.patientRecord?.patientCondition}
+				/>
 			</div>
+		</div>
+	);
+};
+
+const PatientDescription = ({
+	label,
+	value,
+}: {
+	label: string;
+	value?: string | number | null;
+}) => {
+	return (
+		<div className="flex flex-col">
+			<p>{label}</p>
+			<p className="font-bold">{value || "Unknown"}</p>
 		</div>
 	);
 };
