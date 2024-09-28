@@ -122,31 +122,33 @@ function ChangePasswordForm({
 						</h1>
 					)}
 					<div className="p-8">
-						<h1 className="text-gray-800 text-3xl ml-1 mb-4">
+						<h1 className="text-gray-800 text-3xl ml-1 mb-6">
 							Change your password
 						</h1>
-						<InputBox
-							label="Previous Password"
-							name="prevPass"
-							required
-							placeholder="Enter your previous password"
-							type="password"
-						/>
-						<InputBox
-							label="New Password"
-							name="newPass"
-							required
-							placeholder="Enter your new password"
-							type="password"
-						/>
-						<InputBox
-							label="Confirm Password"
-							name="confirmPass"
-							required
-							placeholder="Confirm your new password"
-							type="password"
-						/>
-						<div className="flex w-full justify-end gap-2 mt-8">
+						<div className="flex flex-col gap-4">
+							<InputBox
+								label="Previous Password"
+								name="prevPass"
+								required
+								placeholder="Enter your previous password"
+								type="password"
+							/>
+							<InputBox
+								label="New Password"
+								name="newPass"
+								required
+								placeholder="Enter your new password"
+								type="password"
+							/>
+							<InputBox
+								label="Confirm Password"
+								name="confirmPass"
+								required
+								placeholder="Confirm your new password"
+								type="password"
+							/>
+						</div>
+						<div className="flex w-full justify-end gap-2 mt-12">
 							<button
 								className="py-2 px-5 rounded-md text-xl border border-blue-950 text-blue-900"
 								onClick={() => {
