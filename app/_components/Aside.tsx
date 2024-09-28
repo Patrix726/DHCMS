@@ -16,13 +16,16 @@ import { usePathname } from "next/navigation";
 import { poppins } from "../fonts";
 import { useState } from "react";
 
+type Role = "Patient" | "Doctor" | "Receptionist";
+const validRoles = ["Patient", "Doctor", "Receptionist"];
+
 const Aside = ({ role }: { role: string }) => {
 	const path = usePathname();
 	const [open, setOpen] = useState(false);
-	const roles = ["Patient", "Doctor", "Receptionist"];
+
 	// if (role !== "patient" && role !== "doctor" && role !== "receptionist") {
-	if (!roles.includes(role)) {
-		return <div>Unauthorized</div>;
+	if (!isValidRole(role)) {
+		return;
 	}
 	const tabs = {
 		Patient: [
@@ -76,31 +79,28 @@ const Aside = ({ role }: { role: string }) => {
 						onClick={() => setOpen((prev) => !prev)}
 					/>
 				</div>
-				{
-					//@ts-ignore
-					tabs[role].map((val, ind) => {
-						return (
-							<Link
-								key={ind}
-								href={val.path}
-								className={` ${
-									poppins.className
-								} px-5 py-4 cursor-pointer rounded-lg gap-5 items-center   ${
-									val.path === path
-										? "bg-blue-950 text-white hover:bg-blue-900"
-										: "hover:bg-blue-100"
-								} ${
-									open
-										? "flex w-full sm:w-auto"
-										: "hidden sm:flex justify-center text-2xl"
-								}`}
-							>
-								<FontAwesomeIcon icon={val.icon} />
-								{open && val.title}
-							</Link>
-						);
-					})
-				}
+				{tabs[role].map((val, ind) => {
+					return (
+						<Link
+							key={ind}
+							href={val.path}
+							className={` ${
+								poppins.className
+							} px-5 py-4 cursor-pointer rounded-lg gap-5 items-center   ${
+								path.includes(val.path)
+									? "bg-blue-950 text-white hover:bg-blue-900"
+									: "hover:bg-blue-100"
+							} ${
+								open
+									? "flex w-full sm:w-auto"
+									: "hidden sm:flex justify-center text-2xl"
+							}`}
+						>
+							<FontAwesomeIcon icon={val.icon} />
+							{open && val.title}
+						</Link>
+					);
+				})}
 			</aside>
 			<div
 				className={`top-0 w-0 ${
@@ -113,4 +113,7 @@ const Aside = ({ role }: { role: string }) => {
 	);
 };
 
+const isValidRole = (x: string): x is Role => {
+	return validRoles.includes(x);
+};
 export default Aside;

@@ -39,7 +39,6 @@ const ReceptionistAppointmentForm = ({ setEvents, popup, setPopup }: props) => {
 					<PatientSearch
 						selectPatient={async (patient: Patient) => {
 							const res = await confirm();
-							console.log(res);
 							if (res) {
 								//TODO: make better error handling
 								if (form.current === null) {
@@ -55,7 +54,7 @@ const ReceptionistAppointmentForm = ({ setEvents, popup, setPopup }: props) => {
 								const res = await fetch(
 									`${
 										process.env.NEXT_PUBLIC_BASE_URL
-									}api/appointments/${formData.get(
+									}/api/appointments/${formData.get(
 										"department"
 									)}`,
 									{
