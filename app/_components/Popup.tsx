@@ -7,12 +7,12 @@ type props = {
 	isOpen: boolean;
 	fullWidth?: boolean;
 	noMinHeight?: boolean;
-	setOpen?: Dispatch<SetStateAction<boolean>>;
+	onClose?: () => void;
 	children: any;
 };
 const Popup = ({
 	isOpen,
-	setOpen,
+	onClose,
 	fullWidth,
 	noMinHeight,
 	children,
@@ -26,7 +26,7 @@ const Popup = ({
 			} min-w-48 md:min-w-96 ${
 				!noMinHeight && "min-h-96"
 			} backdrop:opacity-40 rounded-xl h-fit`}
-			onClose={() => setOpen && setOpen(false)}
+			onClose={onClose}
 		>
 			{children}
 		</dialog>
