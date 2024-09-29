@@ -32,6 +32,9 @@ export async function getPatientMedicalRecords(patientId: string) {
 					medication: true,
 				},
 			},
+			id: true,
+			symptoms: true,
+			medsInstruction: true,
 		},
 		orderBy: {
 			appointment: {
@@ -101,6 +104,9 @@ export type medicalRecord = Prisma.MedicalRecordGetPayload<{
 				medication: true;
 			};
 		};
+		id: true;
+		symptoms: true;
+		medsInstruction: true;
 	};
 }>;
 

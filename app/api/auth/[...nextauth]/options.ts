@@ -66,5 +66,4 @@ export const options: NextAuthOptions = {
 			return session;
 		},
 	},
-	debug: process.env.NODE_ENV !== "production",
 };

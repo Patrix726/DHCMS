@@ -63,22 +63,34 @@ export async function getPatient(id: string) {
 			sex: true,
 			occupation: true,
 			medicalRecords: {
-				include: {
-					appointment: {
-						include: {
-							doctor: {
+				select: {
+					doctor: {
+						select: {
+							staff: {
 								select: {
-									staff: {
-										select: {
-											firstName: true,
-											lastName: true,
-											middleName: true,
-										},
-									},
+									firstName: true,
+									middleName: true,
 								},
 							},
 						},
 					},
+					diagnosis: true,
+					appointment: {
+						select: {
+							datetime: true,
+						},
+					},
+					prescription: {
+						select: {
+							dosage: true,
+							duration: true,
+							instruction: true,
+							medication: true,
+						},
+					},
+					id: true,
+					symptoms: true,
+					medsInstruction: true,
 				},
 				orderBy: {
 					appointment: {
@@ -128,22 +140,34 @@ export type patient = Prisma.PatientGetPayload<{
 		sex: true;
 		occupation: true;
 		medicalRecords: {
-			include: {
-				appointment: {
-					include: {
-						doctor: {
+			select: {
+				doctor: {
+					select: {
+						staff: {
 							select: {
-								staff: {
-									select: {
-										firstName: true;
-										lastName: true;
-										middleName: true;
-									};
-								};
+								firstName: true;
+								middleName: true;
 							};
 						};
 					};
 				};
+				diagnosis: true;
+				appointment: {
+					select: {
+						datetime: true;
+					};
+				};
+				prescription: {
+					select: {
+						dosage: true;
+						duration: true;
+						instruction: true;
+						medication: true;
+					};
+				};
+				id: true;
+				symptoms: true;
+				medsInstruction: true;
 			};
 		};
 		patientRecord: true;
