@@ -1,3 +1,4 @@
+import AdminDashboard from "@/app/_pages/admin/AdminDashboard";
 import DoctorDashboard from "@/app/_pages/doctor/DoctorDashboard";
 import PatientDashboard from "@/app/_pages/patient/PatientDashboard";
 import ReceptionistDashboard from "@/app/_pages/receptionist/ReceptionistDashboard";
@@ -15,6 +16,8 @@ export default async function Dashboard() {
 			return <DoctorDashboard />;
 		case "Receptionist":
 			return <ReceptionistDashboard />;
+		case "Administrator":
+			return <AdminDashboard />;
 		default:
 			return <Unauthorized />;
 	}

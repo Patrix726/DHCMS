@@ -4,7 +4,6 @@ import {
 	faBars,
 	faClock,
 	faClose,
-	faCross,
 	faDollar,
 	faHome,
 	faPerson,
@@ -16,8 +15,8 @@ import { usePathname } from "next/navigation";
 import { poppins } from "../fonts";
 import { useState } from "react";
 
-type Role = "Patient" | "Doctor" | "Receptionist";
-const validRoles = ["Patient", "Doctor", "Receptionist"];
+type Role = "Patient" | "Doctor" | "Receptionist" | "Administrator";
+const validRoles = ["Patient", "Doctor", "Receptionist", "Administrator"];
 
 const Aside = ({ role }: { role: string }) => {
 	const path = usePathname();
@@ -47,6 +46,15 @@ const Aside = ({ role }: { role: string }) => {
 			{
 				path: "/register",
 				title: "Register Patient",
+				icon: faAddressCard,
+			},
+		],
+		Administrator: [
+			{ path: "/dashboard", title: "Home", icon: faHome },
+			// { path: "/profile", title: "Profile", icon: faPerson },
+			{
+				path: "/register",
+				title: "Register Staff",
 				icon: faAddressCard,
 			},
 		],
