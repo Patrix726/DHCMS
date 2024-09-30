@@ -13,7 +13,7 @@ export default function SignIn({
 	return (
 		<div className="w-full h-[100vh] flex justify-center items-center">
 			<form
-				className="p-8 flex flex-col gap-5 justify-center items-center w-[400px] h-1/2 rounded-2xl sign-in-form relative"
+				className="p-8 flex flex-col gap-5 justify-center items-center w-[600px] h-2/3 max-h-[520px] min-h-[400px] rounded-2xl sign-in-form relative"
 				onSubmit={(e) =>
 					handleSubmit(
 						e,
@@ -33,13 +33,13 @@ export default function SignIn({
 				<h1 className="text-3xl font-bold mb-5">Sign In</h1>
 				<input
 					type="text"
-					className="rounded-3xl w-full mx-2 border border-gray-400 p-3"
+					className="rounded-xl w-full mx-2 border border-gray-400 p-3"
 					placeholder="Phone No."
 					onChange={(e) => (phoneInput.current = e.target.value)}
 				/>
 				<input
 					type="password"
-					className="rounded-3xl w-full mx-2 border border-gray-400 p-3"
+					className="rounded-xl w-full mx-2 border border-gray-400 p-3"
 					placeholder="Password"
 					onChange={(e) => (passInput.current = e.target.value)}
 				/>
