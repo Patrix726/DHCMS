@@ -7,6 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Patient } from "@prisma/client";
 import { FormEvent, useRef, useState } from "react";
+import Button, { variants } from "../Buttons/Button";
 
 export default function PatientSearch({
 	selectPatient,
@@ -63,12 +64,9 @@ export default function PatientSearch({
 						placeholder="Last-name"
 					/>
 
-					<button
-						className="py-2 px-5 bg-blue-900 hover:bg-blue-950 text-white focus:outline-none"
-						type="submit"
-					>
+					<Button variant={variants.Primary} type="submit">
 						<FontAwesomeIcon icon={faSearch} />
-					</button>
+					</Button>
 				</div>
 				<button
 					className="p-2  text-lg rounded-lg justify-center hover:bg-gray-100 flex gap-2 items-center focus:outline-none border border-gray-800"

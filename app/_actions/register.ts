@@ -90,9 +90,10 @@ export async function registerPatient(initialState: any, formData: FormData) {
 	}
 }
 
-export async function registerStaff(formData: FormData) {
+export async function registerStaff(initialState: any, formData: FormData) {
 	const birthDate = new Date();
 	birthDate.setFullYear(2024, 1, 1);
+	const password = generatePassword(8);
 	const staff = await prisma.staff.create({
 		data: {
 			birthDate: birthDate,
@@ -107,7 +108,7 @@ export async function registerStaff(formData: FormData) {
 			emergencyContact: "Thomas Shelby",
 			email: "example@test.com",
 			employmentStatus: "Active",
-			password: "password",
+			password: password,
 			username: "username",
 			role: { connect: { id: "" } }, //By name is better
 			doctor: {
@@ -115,6 +116,7 @@ export async function registerStaff(formData: FormData) {
 			}, //If Doctor
 		},
 	});
+	return initialState;
 }
 function generatePassword(length: number): string {
 	let result = "";

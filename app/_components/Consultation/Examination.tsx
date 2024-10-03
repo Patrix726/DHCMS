@@ -1,6 +1,7 @@
 import React from "react";
 import InputBox from "../InputBox";
 import { examinationData } from "../PatientConsultation";
+import Button, { variants } from "../Buttons/Button";
 
 const Examination = ({ handleSubmit }: { handleSubmit: Function }) => {
 	return (
@@ -73,12 +74,12 @@ const Examination = ({ handleSubmit }: { handleSubmit: Function }) => {
 				</div>
 			</div>
 			<div className="lg:col-span-2 flex justify-end w-full mx-auto mt-3 gap-2 pb-5 pr-5">
-				<button
+				<Button
+					label="Save"
+					variant={variants.Primary}
 					type="submit"
-					className="bg-blue-950 text-white w-1/3 py-2 md:w-auto md:py-4 md:px-12 rounded-md"
-				>
-					Save
-				</button>
+					size="large"
+				/>
 			</div>
 		</form>
 	);

@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import Link from "next/link";
-import SignInButton from "./_components/SignInButton";
+import SignInButton from "./_components/Buttons/SignInButton";
 import Image from "next/image";
 import bgImage from "@/public/LandingPageBg.jpg";
 

@@ -15,6 +15,7 @@ import InputBox from "./InputBox";
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { changePassword } from "../_actions/user";
 import { useFormState } from "react-dom";
+import Button, { variants } from "./Buttons/Button";
 
 const ProfileMenu = ({ user }: { user: Session }) => {
 	const { open, setOpen, menuRef } = useProfilePopup();
@@ -97,17 +98,16 @@ function ChangePasswordForm({
 					/>
 					<p className="text-gray-600 text-xl">{state.message}</p>
 
-					<button
-						className={`py-2 px-5 rounded-md text-xl ${
-							state.error ? "bg-red-200" : "bg-green-200"
-						}`}
+					<Button
+						label={state.error ? "Try Again" : "Continue"}
+						variant={
+							state.error ? variants.Error : variants.Success
+						}
 						onClick={() => {
 							onReset();
 							setOpen(false);
 						}}
-					>
-						{state.error ? "Try Again" : "Continue"}
-					</button>
+					/>
 				</div>
 			) : (
 				<form
@@ -149,21 +149,19 @@ function ChangePasswordForm({
 							/>
 						</div>
 						<div className="flex w-full justify-end gap-2 mt-12">
-							<button
-								className="py-2 px-5 rounded-md text-xl border border-blue-950 text-blue-900"
+							<Button
+								label="Cancel"
 								onClick={() => {
 									form.current?.reset();
 									setOpen(false);
 								}}
-							>
-								Cancel
-							</button>
-							<button
-								className="py-2 px-5 rounded-md text-xl bg-blue-900 text-white"
+								variant={variants.Secondary}
+							/>
+							<Button
+								label="Save"
 								type="submit"
-							>
-								Save
-							</button>
+								variant={variants.Primary}
+							/>
 						</div>
 					</div>
 				</form>

@@ -1,6 +1,6 @@
 import Tabs from "./Tabs";
 import ProfileMenu from "./ProfileMenu";
-import SignInButton from "./SignInButton";
+import SignInButton from "./Buttons/SignInButton";
 import { getServerSession } from "next-auth";
 
 const Nav = async () => {

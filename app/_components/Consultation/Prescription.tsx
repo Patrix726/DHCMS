@@ -6,6 +6,7 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import Popup from "../Popup";
 import { Medication } from "@prisma/client";
 import { SelectedElement } from "./Diagnosis";
+import Button, { variants } from "../Buttons/Button";
 
 export type props = {
 	data: consultationData;
@@ -193,25 +194,22 @@ const Prescription = ({ data, setData }: props) => {
 						</div>
 					</div>
 					<div className="flex justify-end w-full pr-5 gap-2">
-						<button
-							className="border border-blue-950 text-blue-900 w-1/3 py-2 md:w-auto md:py-3 md:px-8 rounded-md"
+						<Button
+							label="Cancel"
+							variant={variants.Secondary}
 							onClick={() => {
 								setDosage(-1);
 								setDuration(-1);
 								setError("");
 								setPopup(false);
 							}}
-							type="button"
-						>
-							Cancel
-						</button>
-						<button
-							type="submit"
-							className="bg-blue-950 text-white w-1/3 py-2 md:w-auto md:py-3 md:px-8 rounded-md"
+						/>
+						<Button
+							label="Save"
+							variant={variants.Primary}
 							onClick={handleSave}
-						>
-							Save
-						</button>
+							type="submit"
+						/>
 					</div>
 				</div>
 			</Popup>

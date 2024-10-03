@@ -8,9 +8,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWarning } from "@fortawesome/free-solid-svg-icons";
 import { useConfirm } from "../_hooks/useConfirm";
 import { useCalendar } from "../_hooks/useCalendar";
-import ReceptionistAppointmentForm from "./ReceptionistAppointmentForm";
+import ReceptionistAppointmentForm from "./Forms/ReceptionistAppointmentForm";
 import { useRouter } from "next/navigation";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import Button, { variants } from "./Buttons/Button";
 
 const DnDCalendar = withDragandDrop<event>(BigCalendar);
 export type event = {
@@ -60,18 +61,19 @@ const Calendar = ({ resources, initialEvents, fullWidth }: props) => {
 						{message.current}
 					</div>
 					<div className="flex w-full justify-end gap-2">
-						<button
-							className="py-2 px-5 rounded-md text-xl border border-blue-950 text-blue-900"
+						<Button
 							onClick={handleCancel}
-						>
-							No
-						</button>
-						<button
-							className="py-2 px-5 rounded-md text-xl bg-blue-900 text-white"
+							label="No"
+							variant={variants.Secondary}
+							size="large"
+						/>
+
+						<Button
 							onClick={handleConfirm}
-						>
-							Yes
-						</button>
+							label="Yes"
+							variant={variants.Primary}
+							size="large"
+						/>
 					</div>
 				</div>
 			</Popup>

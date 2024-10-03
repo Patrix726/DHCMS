@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWarning, faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 import { Medication } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import Button, { variants } from "./Buttons/Button";
 export type examinationData = {
 	vitals?: {
 		temperature?: number;
@@ -123,28 +124,26 @@ const PatientConsultation = ({
 						<p>Your data will be lost</p>
 					</div>
 					<div className="flex w-full justify-end gap-2">
-						<button
-							className="py-2 px-5 rounded-md text-xl border border-blue-950 text-blue-900"
+						<Button
 							onClick={handleCancel}
-						>
-							No
-						</button>
-						<button
-							className="py-2 px-5 rounded-md text-xl bg-blue-900 text-white"
+							label="No"
+							variant={variants.Secondary}
+						/>
+						<Button
 							onClick={handleConfirm}
-						>
-							Yes
-						</button>
+							label="Yes"
+							variant={variants.Primary}
+						/>
 					</div>
 				</div>
 			</Popup>
 			<div className="w-full flex justify-end">
-				<button
-					className="px-5 py-2 bg-blue-900 text-white hover:bg-blue-700 hover:text-white rounded-md"
+				<Button
 					onClick={handleClick}
-				>
-					{consulting ? "Stop" : "Start"} Consultation
-				</button>
+					label={`${consulting ? "Stop" : "Start"} Consultation`}
+					variant={variants.Primary}
+					size="medium"
+				/>
 			</div>
 			{error && (
 				<Popup isOpen={true}>
@@ -154,12 +153,11 @@ const PatientConsultation = ({
 							className="text-7xl text-red-600"
 						/>
 						<p className="text-gray-600 text-xl">{error}</p>
-						<button
-							className="py-2 px-5 rounded-md text-xl bg-red-200"
+						<Button
 							onClick={() => setError("")}
-						>
-							Close
-						</button>
+							label="Close"
+							variant={variants.Error}
+						/>
 					</div>
 				</Popup>
 			)}

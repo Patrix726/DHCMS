@@ -1,5 +1,6 @@
 "use client";
 import { registerPatient } from "@/app/_actions/register";
+import Button, { variants } from "@/app/_components/Buttons/Button";
 import InputBox from "@/app/_components/InputBox";
 import Popup from "@/app/_components/Popup";
 import {
@@ -94,20 +95,16 @@ export default function ReceptionistRegister() {
 				/>
 
 				<div className="lg:col-span-2 flex justify-end w-3/4 m-auto mt-9 gap-2">
-					<button
-						className="border border-blue-950 text-blue-900 w-1/3 py-2 md:w-auto md:py-4 md:px-12 rounded-md"
+					<Button
+						label="Cancel"
+						variant={variants.Secondary}
 						onClick={() => form.current?.reset()}
-						type="button"
-					>
-						Cancel
-					</button>
-					<button
+					/>
+					<Button
+						label={pending ? "Submitting" : "Save"}
 						type="submit"
-						className="bg-blue-950 text-white w-1/3 py-2 md:w-auto md:py-4 md:px-12 rounded-md"
-						disabled={pending}
-					>
-						{pending ? "Submitting" : "Save"}
-					</button>
+						variant={variants.Primary}
+					/>
 				</div>
 			</form>
 		</main>
@@ -140,14 +137,11 @@ const PopUpMessage = ({
 					<strong>{password}</strong>
 				</p>
 			)}
-			<button
-				className={`py-2 px-5 rounded-md text-xl ${
-					error ? "bg-red-200" : "bg-green-200"
-				}`}
+			<Button
+				label={error ? "Try Again" : "Continue"}
+				variant={error ? variants.Error : variants.Success}
 				onClick={() => setOpen(false)}
-			>
-				{error ? "Try Again" : "Continue"}
-			</button>
+			/>
 		</div>
 	);
 };

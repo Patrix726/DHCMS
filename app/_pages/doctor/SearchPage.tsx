@@ -1,4 +1,5 @@
 "use client";
+import Button, { variants } from "@/app/_components/Buttons/Button";
 import {
 	faCaretDown,
 	faCaretUp,

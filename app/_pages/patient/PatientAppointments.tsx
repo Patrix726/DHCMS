@@ -1,5 +1,6 @@
 "use client";
-import AppointmentForm from "@/app/_components/AppointmentForm";
+import Button, { variants } from "@/app/_components/Buttons/Button";
+import AppointmentForm from "@/app/_components/Forms/AppointmentForm";
 import Popup from "@/app/_components/Popup";
 import { useAppointment } from "@/app/_hooks/useAppointment";
 import { useConfirm } from "@/app/_hooks/useConfirm";
@@ -110,23 +111,21 @@ export default function PatientAppointments({
 					/>
 
 					<div className="flex w-full justify-end gap-2">
-						<button
-							className="py-2 px-5 rounded-md text-xl border border-blue-950 text-blue-900"
+						<Button
+							label="Cancel"
+							variant={variants.Secondary}
 							onClick={() => {
 								form.current && form.current.reset();
 								setEdit(undefined);
 								setTimeSlots({});
 								setPopup(PopupTypes.None);
 							}}
-						>
-							Cancel
-						</button>
-						<button
-							className="py-2 px-5 rounded-md text-xl bg-blue-900 text-white"
+						/>
+						<Button
+							label="Save"
+							variant={variants.Primary}
 							onClick={handleSubmit}
-						>
-							Save
-						</button>
+						/>
 					</div>
 				</div>
 			</Popup>
@@ -140,18 +139,16 @@ export default function PatientAppointments({
 						<p>Are you sure you want to cancel this appointment?</p>
 					</div>
 					<div className="flex w-full justify-end gap-2">
-						<button
-							className="py-2 px-5 rounded-md text-xl border border-blue-950 text-blue-900"
+						<Button
+							label="No"
+							variant={variants.Secondary}
 							onClick={handleCancel}
-						>
-							No
-						</button>
-						<button
-							className="py-2 px-5 rounded-md text-xl bg-blue-900 text-white"
+						/>
+						<Button
+							label="Yes"
+							variant={variants.Primary}
 							onClick={handleConfirm}
-						>
-							Yes
-						</button>
+						/>
 					</div>
 				</div>
 			</Popup>
@@ -192,12 +189,11 @@ export default function PatientAppointments({
 				</div>
 			)}
 			<div className="mt-8 w-3/4 flex justify-end mr-2">
-				<button
-					className="bg-blue-900 text-white px-3 py-2 rounded"
+				<Button
+					label="Schedule Appointment"
+					variant={variants.Primary}
 					onClick={() => setPopup(PopupTypes.Create)}
-				>
-					Schedule Appointment
-				</button>
+				/>
 			</div>
 		</main>
 	);

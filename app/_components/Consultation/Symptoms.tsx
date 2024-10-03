@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { consultationData } from "../PatientConsultation";
 import { SelectedElement } from "./Diagnosis";
+import Button, { variants } from "../Buttons/Button";
 
 type props = {
 	data: consultationData;
@@ -75,12 +76,7 @@ const Symptoms = ({ data, setData, handleSubmit }: props) => {
 						placeholder="Add symptoms here"
 					/>
 				</label>
-				<button
-					className="w-1/12 py-2.5 bg-blue-700 text-white font-bold rounded"
-					type="submit"
-				>
-					Add
-				</button>
+				<Button label="Add" variant={variants.Primary} type="submit" />
 			</form>
 			<div className="p-2 min-h-24 flex flex-col gap-2">
 				<p className="py-2">Common Symptoms</p>

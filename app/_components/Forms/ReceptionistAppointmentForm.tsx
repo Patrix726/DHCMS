@@ -1,14 +1,15 @@
 import React, { Dispatch, SetStateAction, useRef, useState } from "react";
-import Popup from "./Popup";
+import Popup from "../Popup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import AppointmentForm from "./AppointmentForm";
-import { useConfirm } from "../_hooks/useConfirm";
-import PatientSearch from "./Appointment/PatientSearch";
+import { useConfirm } from "../../_hooks/useConfirm";
+import PatientSearch from "./PatientSearch";
 import { Patient } from "@prisma/client";
-import { isAppointment } from "../_pages/patient/PatientAppointments";
-import { event } from "./Calendar";
-import { patientAppointment } from "../utils/db/appointment";
+import { isAppointment } from "../../_pages/patient/PatientAppointments";
+import { event } from "../Calendar";
+import { patientAppointment } from "../../utils/db/appointment";
+import Button, { variants } from "../Buttons/Button";
 
 type props = {
 	setEvents: Dispatch<SetStateAction<event[]>>;
@@ -122,22 +123,20 @@ const ReceptionistAppointmentForm = ({ setEvents, popup, setPopup }: props) => {
 					/>
 
 					<div className="flex w-full justify-end gap-2">
-						<button
-							className="py-2 px-5 rounded-md text-xl border border-blue-950 text-blue-900"
+						<Button
+							label="Cancel"
+							variant={variants.Secondary}
 							onClick={() => {
 								form.current && form.current.reset();
 								setTimeSlots({});
 								handleCancel();
 							}}
-						>
-							Cancel
-						</button>
-						<button
-							className="py-2 px-5 rounded-md text-xl bg-blue-900 text-white"
+						/>
+						<Button
+							label="Save"
+							variant={variants.Primary}
 							onClick={handleConfirm}
-						>
-							Save
-						</button>
+						/>
 					</div>
 				</div>
 			</Popup>

@@ -1,6 +1,6 @@
 import React, { MouseEventHandler } from "react";
 import { consultationData } from "../PatientConsultation";
-import { useSession } from "next-auth/react";
+import Button, { variants } from "../Buttons/Button";
 
 const Review = ({
 	data,
@@ -88,13 +88,12 @@ const Review = ({
 				)}
 			</div>
 			<div className="flex justify-end w-full pr-5 gap-2">
-				<button
-					type="submit"
-					className="bg-blue-950 text-white w-1/3 py-2 md:w-auto md:py-3 md:px-8 rounded-md"
+				<Button
+					label="Finish"
+					variant={variants.Primary}
 					onClick={handleSave}
-				>
-					Finish
-				</button>
+					type="submit"
+				/>
 			</div>
 		</div>
 	);
