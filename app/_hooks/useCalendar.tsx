@@ -65,7 +65,7 @@ export const useCalendar = (
 					{
 						method: "PUT",
 						body: JSON.stringify({
-							date: start as Date,
+							date: new Date(start),
 							appointmentId: event.data.id,
 							doctorId: resourceId as string,
 						}),

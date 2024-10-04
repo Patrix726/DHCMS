@@ -7,6 +7,7 @@ import {
 	availableDoctor,
 	getAvailableDoctor,
 	getAvailableDoctors,
+	getDoctor,
 } from "@/app/utils/db/doctor";
 
 export async function GET(
@@ -68,11 +69,14 @@ export async function PUT(
 		doctorId: string;
 	} = await req.json();
 	const date = new Date(data.date);
-
+	const doctor = await getDoctor(data.doctorId);
+	if (!doctor) {
+		return NextResponse.json({ message: "Invalid doctor id", error: true });
+	}
 	const appointment = await updateAppointment({
 		date,
 		appointmentId: data.appointmentId,
-		doctorId: data.doctorId,
+		doctorId: doctor.id,
 	});
 
 	return NextResponse.json(appointment);
