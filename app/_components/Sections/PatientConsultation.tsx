@@ -11,10 +11,11 @@ import { SessionProvider } from "next-auth/react";
 import { useConfirm } from "../../_hooks/useConfirm";
 import Popup from "../Popups/Popup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWarning, faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
+import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 import { Medication } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import Button, { variants } from "../Buttons/Button";
+import Warning from "../Popups/Warning";
 export type examinationData = {
 	vitals?: {
 		temperature?: number;
@@ -113,30 +114,14 @@ const PatientConsultation = ({
 	}
 	return (
 		<div className="flex flex-col gap-5">
-			<Popup isOpen={open}>
-				<div className="flex flex-col p-10 m-auto absolute inset-0 bg-white items-center justify-around gap-5 text-center">
-					<FontAwesomeIcon
-						icon={faWarning}
-						className={`text-7xl text-orange-400`}
-					/>
-					<div className="text-gray-600 text-xl">
-						<p>Are you sure you want to stop the consultation?</p>
-						<p>Your data will be lost</p>
-					</div>
-					<div className="flex w-full justify-end gap-2">
-						<Button
-							onClick={handleCancel}
-							label="No"
-							variant={variants.Secondary}
-						/>
-						<Button
-							onClick={handleConfirm}
-							label="Yes"
-							variant={variants.Primary}
-						/>
-					</div>
-				</div>
-			</Popup>
+			<Warning
+				handleCancel={handleCancel}
+				handleConfirm={handleConfirm}
+				isOpen={open}
+			>
+				<p>Are you sure you want to stop the consultation?</p>
+				<p>Your data will be lost</p>
+			</Warning>
 			<div className="w-full flex justify-end">
 				<Button
 					onClick={handleClick}
@@ -145,22 +130,20 @@ const PatientConsultation = ({
 					size="medium"
 				/>
 			</div>
-			{error && (
-				<Popup isOpen={true}>
-					<div className="flex flex-col p-10 m-auto absolute inset-0 bg-white items-center justify-around gap-5 text-center">
-						<FontAwesomeIcon
-							icon={faXmarkCircle}
-							className="text-7xl text-red-600"
-						/>
-						<p className="text-gray-600 text-xl">{error}</p>
-						<Button
-							onClick={() => setError("")}
-							label="Close"
-							variant={variants.Error}
-						/>
-					</div>
-				</Popup>
-			)}
+			<Popup isOpen={!!error}>
+				<div className="flex flex-col p-10 m-auto absolute inset-0 bg-white items-center justify-around gap-5 text-center">
+					<FontAwesomeIcon
+						icon={faXmarkCircle}
+						className="text-7xl text-red-600"
+					/>
+					<p className="text-gray-600 text-xl">{error}</p>
+					<Button
+						onClick={() => setError("")}
+						label="Close"
+						variant={variants.Error}
+					/>
+				</div>
+			</Popup>
 			{consulting && (
 				<div className="rounded-3xl w-full p-5 border-2 border-blue-700 flex flex-col gap-4 min-h-[550px] overflow-scroll h-fit">
 					<Tabs selectedTabClassName="bg-blue-700 text-white rounded-t-lg">

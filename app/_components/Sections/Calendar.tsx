@@ -3,15 +3,12 @@ import moment from "moment";
 import { useState } from "react";
 import { Calendar as BigCalendar, momentLocalizer } from "react-big-calendar";
 import withDragandDrop from "react-big-calendar/lib/addons/dragAndDrop";
-import Popup from "../Popups/Popup";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWarning } from "@fortawesome/free-solid-svg-icons";
 import { useConfirm } from "../../_hooks/useConfirm";
 import { useCalendar } from "../../_hooks/useCalendar";
 import ReceptionistAppointmentForm from "../Forms/ReceptionistAppointmentForm";
 import { useRouter } from "next/navigation";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import Button, { variants } from "../Buttons/Button";
+import Warning from "../Popups/Warning";
 
 const DnDCalendar = withDragandDrop<event>(BigCalendar);
 export type event = {
@@ -51,32 +48,13 @@ const Calendar = ({ resources, initialEvents, fullWidth }: props) => {
 				fullWidth ? "w-full" : "w-5/6"
 			} flex justify-center`}
 		>
-			<Popup isOpen={open}>
-				<div className="flex flex-col p-10 m-auto absolute inset-0 bg-white items-center justify-around gap-5 text-center">
-					<FontAwesomeIcon
-						icon={faWarning}
-						className={`text-7xl text-orange-400`}
-					/>
-					<div className="text-gray-600 text-xl">
-						{message.current}
-					</div>
-					<div className="flex w-full justify-end gap-2">
-						<Button
-							onClick={handleCancel}
-							label="No"
-							variant={variants.Secondary}
-							size="large"
-						/>
-
-						<Button
-							onClick={handleConfirm}
-							label="Yes"
-							variant={variants.Primary}
-							size="large"
-						/>
-					</div>
-				</div>
-			</Popup>
+			<Warning
+				handleCancel={handleCancel}
+				handleConfirm={handleConfirm}
+				isOpen={open}
+			>
+				{message.current}
+			</Warning>
 			<ReceptionistAppointmentForm
 				setEvents={setEvents}
 				popup={popup}

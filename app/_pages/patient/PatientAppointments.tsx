@@ -2,16 +2,11 @@
 import Button, { variants } from "@/app/_components/Buttons/Button";
 import AppointmentForm from "@/app/_components/Forms/AppointmentForm";
 import Popup from "@/app/_components/Popups/Popup";
+import Warning from "@/app/_components/Popups/Warning";
 import { useAppointment } from "@/app/_hooks/useAppointment";
 import { useConfirm } from "@/app/_hooks/useConfirm";
 import { patientAppointment } from "@/app/utils/db/appointment";
-import { patient } from "@/app/utils/db/patient";
-import {
-	faClose,
-	faEdit,
-	faTrash,
-	faWarning,
-} from "@fortawesome/free-solid-svg-icons";
+import { faClose, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Department } from "@prisma/client";
 import { Dispatch, SetStateAction, useRef, useState } from "react";
@@ -129,29 +124,13 @@ export default function PatientAppointments({
 					</div>
 				</div>
 			</Popup>
-			<Popup isOpen={open}>
-				<div className="flex flex-col p-10 m-auto absolute inset-0 bg-white items-center justify-around gap-5 text-center">
-					<FontAwesomeIcon
-						icon={faWarning}
-						className={`text-7xl text-orange-400`}
-					/>
-					<div className="text-gray-600 text-xl">
-						<p>Are you sure you want to cancel this appointment?</p>
-					</div>
-					<div className="flex w-full justify-end gap-2">
-						<Button
-							label="No"
-							variant={variants.Secondary}
-							onClick={handleCancel}
-						/>
-						<Button
-							label="Yes"
-							variant={variants.Primary}
-							onClick={handleConfirm}
-						/>
-					</div>
-				</div>
-			</Popup>
+			<Warning
+				handleCancel={handleCancel}
+				handleConfirm={handleConfirm}
+				isOpen={open}
+			>
+				<p>Are you sure you want to cancel this appointment?</p>
+			</Warning>
 			<h1 className="text-2xl sm:text-4xl mb-5 w-full sm:w-3/4 text-left">
 				Upcoming Appointments
 			</h1>
