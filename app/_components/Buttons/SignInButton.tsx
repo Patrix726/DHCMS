@@ -1,15 +1,15 @@
 "use client";
 import { signIn } from "next-auth/react";
 import React from "react";
+import Button, { variants } from "./Button";
 
 const SignInButton = () => {
 	return (
-		<button
-			className="text-xl py-2 px-4 bg-blue-950 rounded-lg text-white z-20 hover:bg-blue-900"
+		<Button
+			label="Sign In"
+			variant={variants.Primary}
 			onClick={() => signIn()}
-		>
-			Sign In
-		</button>
+		/>
 	);
 };
 

@@ -12,7 +12,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { poppins } from "../fonts";
+import { poppins } from "../../fonts";
 import { useState } from "react";
 
 type Role = "Patient" | "Doctor" | "Receptionist" | "Administrator";

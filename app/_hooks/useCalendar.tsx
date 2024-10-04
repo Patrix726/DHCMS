@@ -6,7 +6,7 @@ import React, {
 	useRef,
 } from "react";
 import { EventInteractionArgs } from "react-big-calendar/lib/addons/dragAndDrop";
-import { event, resource } from "@/app/_components/Calendar";
+import { event, resource } from "@/app/_components/Sections/Calendar";
 import { patientAppointment } from "../utils/db/appointment";
 export const useCalendar = (
 	setEvents: Dispatch<SetStateAction<event[]>>,

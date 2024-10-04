@@ -1,7 +1,7 @@
 import { props } from "./Prescription";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import SearchBox from "../SearchBox";
+import SearchBox from "../../Inputs/SearchBox";
 
 const Diagnosis = ({ data, setData }: props) => {
 	const patientDiagnosis = data.diagnosis.map((diagnosis, ind) => {

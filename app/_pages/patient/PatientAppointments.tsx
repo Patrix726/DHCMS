@@ -1,7 +1,7 @@
 "use client";
 import Button, { variants } from "@/app/_components/Buttons/Button";
 import AppointmentForm from "@/app/_components/Forms/AppointmentForm";
-import Popup from "@/app/_components/Popup";
+import Popup from "@/app/_components/Popups/Popup";
 import { useAppointment } from "@/app/_hooks/useAppointment";
 import { useConfirm } from "@/app/_hooks/useConfirm";
 import { patientAppointment } from "@/app/utils/db/appointment";

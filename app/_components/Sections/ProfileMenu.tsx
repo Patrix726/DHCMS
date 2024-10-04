@@ -9,13 +9,13 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
-import { useProfilePopup } from "../_hooks/useProfilePopup";
-import Popup from "./Popup";
-import InputBox from "./InputBox";
+import { useProfilePopup } from "../../_hooks/useProfilePopup";
+import Popup from "../Popups/Popup";
+import InputBox from "../Inputs/InputBox";
 import { Dispatch, SetStateAction, useRef, useState } from "react";
-import { changePassword } from "../_actions/user";
+import { changePassword } from "../../_actions/user";
 import { useFormState } from "react-dom";
-import Button, { variants } from "./Buttons/Button";
+import Button, { variants } from "../Buttons/Button";
 
 const ProfileMenu = ({ user }: { user: Session }) => {
 	const { open, setOpen, menuRef } = useProfilePopup();

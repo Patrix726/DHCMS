@@ -1,4 +1,4 @@
-import Calendar, { event, resource } from "@/app/_components/Calendar";
+import Calendar, { event, resource } from "@/app/_components/Sections/Calendar";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { doctorAppointment } from "@/app/utils/db/appointment";
 import { getHeader } from "@/app/utils/header";

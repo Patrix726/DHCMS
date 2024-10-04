@@ -1,12 +1,12 @@
 import React, { Dispatch, SetStateAction, useRef, useState } from "react";
-import SearchBox from "../SearchBox";
+import SearchBox from "../../Inputs/SearchBox";
 import { consultationData } from "../PatientConsultation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import Popup from "../Popup";
+import Popup from "../../Popups/Popup";
 import { Medication } from "@prisma/client";
 import { SelectedElement } from "./Diagnosis";
-import Button, { variants } from "../Buttons/Button";
+import Button, { variants } from "../../Buttons/Button";
 
 export type props = {
 	data: consultationData;

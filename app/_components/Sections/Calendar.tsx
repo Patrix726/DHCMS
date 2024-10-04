@@ -3,15 +3,15 @@ import moment from "moment";
 import { useState } from "react";
 import { Calendar as BigCalendar, momentLocalizer } from "react-big-calendar";
 import withDragandDrop from "react-big-calendar/lib/addons/dragAndDrop";
-import Popup from "./Popup";
+import Popup from "../Popups/Popup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWarning } from "@fortawesome/free-solid-svg-icons";
-import { useConfirm } from "../_hooks/useConfirm";
-import { useCalendar } from "../_hooks/useCalendar";
-import ReceptionistAppointmentForm from "./Forms/ReceptionistAppointmentForm";
+import { useConfirm } from "../../_hooks/useConfirm";
+import { useCalendar } from "../../_hooks/useCalendar";
+import ReceptionistAppointmentForm from "../Forms/ReceptionistAppointmentForm";
 import { useRouter } from "next/navigation";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import Button, { variants } from "./Buttons/Button";
+import Button, { variants } from "../Buttons/Button";
 
 const DnDCalendar = withDragandDrop<event>(BigCalendar);
 export type event = {

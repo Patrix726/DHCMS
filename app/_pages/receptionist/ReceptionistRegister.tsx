@@ -1,8 +1,8 @@
 "use client";
 import { registerPatient } from "@/app/_actions/register";
 import Button, { variants } from "@/app/_components/Buttons/Button";
-import InputBox from "@/app/_components/InputBox";
-import Popup from "@/app/_components/Popup";
+import InputBox from "@/app/_components/Inputs/InputBox";
+import Popup from "@/app/_components/Popups/Popup";
 import {
 	faCheckCircle,
 	faXmarkCircle,

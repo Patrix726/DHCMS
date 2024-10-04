@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
-import { consultationData } from "./PatientConsultation";
+import { consultationData } from "../Sections/PatientConsultation";
 import { Diseases, Medication } from "@prisma/client";
 type props = {
 	name: "diagnosis" | "prescription";

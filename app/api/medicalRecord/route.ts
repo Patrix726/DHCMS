@@ -1,4 +1,4 @@
-import { consultationData } from "@/app/_components/PatientConsultation";
+import { consultationData } from "@/app/_components/Sections/PatientConsultation";
 import prisma from "@/app/client";
 import { getDoctor } from "@/app/utils/db/doctor";
 import {

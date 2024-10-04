@@ -1,7 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, useEffect, useRef } from "react";
-import { usePopup } from "../_hooks/usePopup";
+import { usePopup } from "../../_hooks/usePopup";
 
 type props = {
 	isOpen: boolean;

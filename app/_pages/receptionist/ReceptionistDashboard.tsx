@@ -5,7 +5,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import Calendar from "@/app/_components/Calendar";
+import Calendar from "@/app/_components/Sections/Calendar";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { doctor } from "@/app/utils/db/doctor";

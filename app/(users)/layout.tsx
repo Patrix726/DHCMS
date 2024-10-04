@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Nav from "../_components/Nav";
-import Aside from "../_components/Aside";
+import Nav from "../_components/Layouts/Nav";
+import Aside from "../_components/Layouts/Aside";
 import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
 import { use } from "react";

@@ -1,6 +1,6 @@
 import React, { MouseEventHandler } from "react";
 import { consultationData } from "../PatientConsultation";
-import Button, { variants } from "../Buttons/Button";
+import Button, { variants } from "../../Buttons/Button";
 
 const Review = ({
 	data,

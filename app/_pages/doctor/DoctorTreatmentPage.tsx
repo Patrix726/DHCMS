@@ -1,5 +1,5 @@
-import PatientConsultation from "@/app/_components/PatientConsultation";
-import PatientDetails from "@/app/_components/PatientDetails";
+import PatientConsultation from "@/app/_components/Sections/PatientConsultation";
+import PatientDetails from "@/app/_components/Sections/PatientDetails";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { patient } from "@/app/utils/db/patient";
 import { getServerSession } from "next-auth";

@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useRef, useState } from "react";
-import Popup from "../Popup";
+import Popup from "../Popups/Popup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import AppointmentForm from "./AppointmentForm";
@@ -7,7 +7,7 @@ import { useConfirm } from "../../_hooks/useConfirm";
 import PatientSearch from "./PatientSearch";
 import { Patient } from "@prisma/client";
 import { isAppointment } from "../../_pages/patient/PatientAppointments";
-import { event } from "../Calendar";
+import { event } from "../Sections/Calendar";
 import { patientAppointment } from "../../utils/db/appointment";
 import Button, { variants } from "../Buttons/Button";
 

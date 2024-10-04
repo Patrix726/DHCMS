@@ -8,13 +8,13 @@ import Symptoms from "./Consultation/Symptoms";
 import Examination from "./Consultation/Examination";
 import Review from "./Consultation/Review";
 import { SessionProvider } from "next-auth/react";
-import { useConfirm } from "../_hooks/useConfirm";
-import Popup from "./Popup";
+import { useConfirm } from "../../_hooks/useConfirm";
+import Popup from "../Popups/Popup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWarning, faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 import { Medication } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import Button, { variants } from "./Buttons/Button";
+import Button, { variants } from "../Buttons/Button";
 export type examinationData = {
 	vitals?: {
 		temperature?: number;

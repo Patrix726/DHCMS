@@ -1,7 +1,7 @@
 import React from "react";
-import InputBox from "../InputBox";
+import InputBox from "../../Inputs/InputBox";
 import { examinationData } from "../PatientConsultation";
-import Button, { variants } from "../Buttons/Button";
+import Button, { variants } from "../../Buttons/Button";
 
 const Examination = ({ handleSubmit }: { handleSubmit: Function }) => {
 	return (

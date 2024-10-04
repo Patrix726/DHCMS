@@ -1,10 +1,10 @@
 "use client";
 
-import Popup from "@/app/_components/Popup";
+import Popup from "@/app/_components/Popups/Popup";
 import { medicalRecord } from "@/app/utils/db/medicalRecord";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dispatch, ReactNode, SetStateAction, useState } from "react";
+import React, { Dispatch, ReactNode, SetStateAction, useState } from "react";
 
 const MedicalRecords = ({
 	medicalRecords,

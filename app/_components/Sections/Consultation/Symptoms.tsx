@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { consultationData } from "../PatientConsultation";
 import { SelectedElement } from "./Diagnosis";
-import Button, { variants } from "../Buttons/Button";
+import Button, { variants } from "../../Buttons/Button";
 
 type props = {
 	data: consultationData;
