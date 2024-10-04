@@ -14,7 +14,7 @@ export async function getPatients({
 	mobileNo: string;
 	email: string;
 }) {
-	prisma.patient.findMany({
+	return prisma.patient.findMany({
 		where: {
 			firstName: {
 				contains: firstName,
@@ -116,7 +116,7 @@ export async function getPatientDueInvoices(id: string) {
 	});
 }
 export async function getPatientPaidInvoices(id: string) {
-	prisma.invoice.findMany({
+	return prisma.invoice.findMany({
 		where: {
 			patient: { id: id },
 			status: "Paid",
