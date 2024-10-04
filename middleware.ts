@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
 	}
 	const base = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 	const redirect = new URLSearchParams({
-		callbackUrl: `https://${base}/dashboard`,
+		callbackUrl: `${base}/dashboard`,
 	});
 	return NextResponse.redirect(`${base}/signin?${redirect.toString()}`);
 }

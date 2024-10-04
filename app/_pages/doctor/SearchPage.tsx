@@ -31,7 +31,7 @@ export default function DoctorSearch({
 		};
 		const searchParams = new URLSearchParams(input);
 		const res = await fetch(
-			`https://${
+			`${
 				process.env.NEXT_PUBLIC_BASE_URL
 			}/api/patients?${searchParams.toString()}`
 		);
