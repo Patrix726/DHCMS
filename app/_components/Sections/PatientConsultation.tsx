@@ -16,6 +16,7 @@ import { Medication } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import Button, { variants } from "../Buttons/Button";
 import Warning from "../Popups/Warning";
+import ErrorPopup from "../Popups/Error";
 export type examinationData = {
 	vitals?: {
 		temperature?: number;
@@ -74,7 +75,6 @@ const PatientConsultation = ({
 		);
 		const apiData = await res.json();
 		if (!res.ok) {
-			console.log("been here");
 			setError(apiData.message);
 			return;
 		}
@@ -130,20 +130,9 @@ const PatientConsultation = ({
 					size="medium"
 				/>
 			</div>
-			<Popup isOpen={!!error}>
-				<div className="flex flex-col p-10 m-auto absolute inset-0 bg-white items-center justify-around gap-5 text-center">
-					<FontAwesomeIcon
-						icon={faXmarkCircle}
-						className="text-7xl text-red-600"
-					/>
-					<p className="text-gray-600 text-xl">{error}</p>
-					<Button
-						onClick={() => setError("")}
-						label="Close"
-						variant={variants.Error}
-					/>
-				</div>
-			</Popup>
+			<ErrorPopup isOpen={!!error} handleClick={() => setError("")}>
+				<p className="text-gray-600 text-xl">{error}</p>
+			</ErrorPopup>
 			{consulting && (
 				<div className="rounded-3xl w-full p-5 border-2 border-blue-700 flex flex-col gap-4 min-h-[550px] overflow-scroll h-fit">
 					<Tabs selectedTabClassName="bg-blue-700 text-white rounded-t-lg">

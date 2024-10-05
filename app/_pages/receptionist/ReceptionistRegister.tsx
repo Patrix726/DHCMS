@@ -2,12 +2,15 @@
 import { registerPatient } from "@/app/_actions/register";
 import Button, { variants } from "@/app/_components/Buttons/Button";
 import InputBox from "@/app/_components/Inputs/InputBox";
+import ErrorPopup from "@/app/_components/Popups/Error";
 import Popup from "@/app/_components/Popups/Popup";
+import SuccessPopup from "@/app/_components/Popups/Success";
 import {
 	faCheckCircle,
 	faXmarkCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { useFormState } from "react-dom";
 const initialState = {
@@ -121,27 +124,34 @@ const PopUpMessage = ({
 	password?: string;
 	setOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
+	const messageComp = <p className="text-gray-600 text-xl">{message}</p>;
+	{
+		password && (
+			<p className="text-gray-600 text-xl">
+				The patient&apos;s temporary password is{" "}
+				<strong>{password}</strong>
+			</p>
+		);
+	}
 	return (
-		<div className="flex flex-col p-10 m-auto absolute inset-0 bg-white items-center justify-around gap-5 text-center">
-			<FontAwesomeIcon
-				icon={error ? faXmarkCircle : faCheckCircle}
-				className={`text-7xl ${
-					error ? "text-red-600" : "text-green-500"
-				}`}
-			/>
-			<p className="text-gray-600 text-xl">{message}</p>
-
-			{password && (
-				<p className="text-gray-600 text-xl">
-					The patient&apos;s temporary password is{" "}
-					<strong>{password}</strong>
-				</p>
+		<>
+			{error ? (
+				<ErrorPopup
+					isOpen={true}
+					handleClick={() => setOpen(false)}
+					buttonLabel="Try Again"
+				>
+					{messageComp}
+				</ErrorPopup>
+			) : (
+				<SuccessPopup
+					isOpen={true}
+					handleClick={() => setOpen(false)}
+					buttonLabel="Continue"
+				>
+					{messageComp}
+				</SuccessPopup>
 			)}
-			<Button
-				label={error ? "Try Again" : "Continue"}
-				variant={error ? variants.Error : variants.Success}
-				onClick={() => setOpen(false)}
-			/>
-		</div>
+		</>
 	);
 };
