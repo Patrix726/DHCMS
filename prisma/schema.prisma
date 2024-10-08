@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url       = env("DATANEXT_PUBLIC_BASE_URL")
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
@@ -70,29 +70,30 @@ model Appointment {
 }
 
 model Staff {
-  id               String           @id @default(uuid())
-  username         String           @unique
-  password         String
-  firstName        String
-  middleName       String
-  lastName         String
-  sex              Sex
-  birthDate        DateTime
-  region           String
-  city             String
-  woreda           String
-  kebele           Int?
-  mobileNumber     String           @unique
-  email            String           @unique
-  role             Role             @relation(fields: [roleId], references: [id])
-  hireDate         DateTime         @default(now())
-  emergencyContact String?
-  employmentStatus EmploymentStatus
-  notes            String[]
-  doctor           Doctor?
-  department       Department?      @relation(fields: [departmentId], references: [id])
-  departmentId     String?
-  roleId           String
+  id                       String           @id @default(uuid())
+  username                 String           @unique
+  password                 String
+  firstName                String
+  middleName               String
+  lastName                 String
+  sex                      Sex
+  birthDate                DateTime
+  region                   String
+  city                     String
+  woreda                   String
+  kebele                   String?
+  mobileNumber             String           @unique
+  email                    String           @unique
+  role                     Role             @relation(fields: [roleId], references: [id])
+  hireDate                 DateTime         @default(now())
+  emergencyContact         String?
+  emergencyContactMobileNo String?
+  employmentStatus         EmploymentStatus
+  notes                    String[]
+  doctor                   Doctor?
+  department               Department?      @relation(fields: [departmentId], references: [id])
+  departmentId             String?
+  roleId                   String
 }
 
 model Doctor {
