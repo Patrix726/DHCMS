@@ -1,5 +1,6 @@
 import prisma from "@/app/client";
 import { Prisma } from "@prisma/client";
+import { StaffData } from "./staff";
 
 export async function getDoctorsInDepartment(departmentId: string) {
 	const date = new Date();
@@ -129,6 +130,49 @@ export async function getAvailableDoctors({
 					date: startTime.toLocaleDateString("en-US", {
 						weekday: "long",
 					}),
+				},
+			},
+		},
+	});
+}
+export async function createDoctor({
+	data,
+	workingDays,
+	departmentId,
+	specialization,
+}: {
+	data: StaffData;
+	workingDays: string[];
+	departmentId?: string;
+	specialization?: string;
+}) {
+	return prisma.staff.create({
+		data: {
+			...data,
+			role: {
+				connect: {
+					name: "Doctor",
+				},
+			},
+			department: {
+				connect: {
+					id: departmentId,
+				},
+			},
+			doctor: {
+				create: {
+					workingHours: {
+						createMany: {
+							data: workingDays.map((day) => {
+								return {
+									date: day,
+									from: 9, // Default but could be changed based on input
+									to: 17, // Default but could be changed based on input
+								};
+							}),
+						},
+					},
+					specialization: specialization,
 				},
 			},
 		},

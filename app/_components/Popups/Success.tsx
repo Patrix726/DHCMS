@@ -1,7 +1,7 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Popup from "./Popup";
-import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import Button, { variants } from "../Buttons/Button";
 import { MouseEventHandler } from "react";
 
@@ -22,7 +22,7 @@ const SuccessPopup = ({
 		<Popup isOpen={isOpen}>
 			<div className="flex flex-col p-10 m-auto absolute inset-0 bg-white items-center justify-around gap-5 text-center">
 				<FontAwesomeIcon
-					icon={faXmarkCircle}
+					icon={faCheckCircle}
 					className="text-7xl text-green-500"
 				/>
 				{children}

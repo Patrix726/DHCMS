@@ -9,7 +9,17 @@ export default async function Register() {
 
 	switch (user?.user.role) {
 		case "Administrator":
-			return <AdminRegister />;
+			const departmentsRes = fetch(
+				`${process.env.NEXT_PUBLIC_BASE_URL}/api/departments`
+			).then((res) => res.json());
+			const rolesRes = fetch(
+				`${process.env.NEXT_PUBLIC_BASE_URL}/api/roles`
+			).then((res) => res.json());
+			const [departments, roles] = await Promise.all([
+				departmentsRes,
+				rolesRes,
+			]);
+			return <AdminRegister departments={departments} roles={roles} />;
 		case "Receptionist":
 			return <ReceptionistRegister />;
 		default:
