@@ -8,6 +8,7 @@ import { useCalendar } from "../../_hooks/useCalendar";
 import ReceptionistAppointmentForm from "../Forms/ReceptionistAppointmentForm";
 import { useRouter } from "next/navigation";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import "./Calendar.css";
 import Warning from "../Popups/Warning";
 
 const DnDCalendar = withDragandDrop<event>(BigCalendar);
