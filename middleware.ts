@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
 	const cookieName =
-		process.env.NODE_ENV === "development"
+		process.env.SECURE === "false"
 			? "next-auth.session-token"
 			: "__Secure-next-auth.session-token";
 	const isLoggedIn = request.cookies.get(cookieName);
