@@ -1,5 +1,28 @@
+import { getHeader } from "@/app/utils/header";
 import Link from "next/link";
-const AdminDashboard = () => {
+const AdminDashboard = async () => {
+	const getStaffCount = fetch(`${process.env.BASE_URL}/api/staff`).then(
+		(res) => res.json()
+	);
+
+	const getInvoicesCount = fetch(
+		`${process.env.BASE_URL}/api/invoices?total=true`
+	).then((res) => res.json());
+
+	const getAppointmentCount = fetch(
+		`${process.env.BASE_URL}/api/appointments`,
+		{
+			headers: getHeader(),
+		}
+	).then((res) => res.json());
+
+	const [staffCount, invoicesCount, appCount] = await Promise.all([
+		getStaffCount,
+		getInvoicesCount,
+		getAppointmentCount,
+	]);
+	const [dueInvoices, paidInvoices] = invoicesCount;
+
 	return (
 		<main className="w-full pt-24 flex flex-col justify-center gap-5 py-4 px-10 box-border min-h-full">
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -9,7 +32,7 @@ const AdminDashboard = () => {
 						className="p-5 rounded-2xl flex flex-col bg-blue-700 text-white gap-4 w-full h-48"
 					>
 						<h1 className="text-lg h-1/3">Total number of staff</h1>
-						<p className="text-5xl h-full">100</p>
+						<p className="text-5xl h-full">{staffCount}</p>
 					</Link>
 				</div>
 				<div className="flex w-full gap-5">
@@ -18,7 +41,7 @@ const AdminDashboard = () => {
 						className="p-5 rounded-2xl flex flex-col bg-blue-700 text-white gap-4 w-full h-48"
 					>
 						<h1 className="text-lg h-1/3">Total unpaid payments</h1>
-						<p className="text-5xl h-full">$1,000</p>
+						<p className="text-5xl h-full">${dueInvoices}</p>
 					</Link>
 				</div>
 				<div className="flex w-full gap-5">
@@ -29,7 +52,7 @@ const AdminDashboard = () => {
 						<h1 className="text-lg h-1/3">
 							Payments in past month
 						</h1>
-						<p className="text-5xl h-full">$10,000</p>
+						<p className="text-5xl h-full">${paidInvoices}</p>
 					</Link>
 				</div>
 				<div className="flex w-full gap-5">
@@ -40,7 +63,7 @@ const AdminDashboard = () => {
 						<h1 className="text-lg h-1/3">
 							Total appointments in the past week
 						</h1>
-						<p className="text-5xl h-full">20</p>
+						<p className="text-5xl h-full">{appCount}</p>
 					</Link>
 				</div>
 			</div>

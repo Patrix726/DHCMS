@@ -3,6 +3,7 @@ import { options } from "../auth/[...nextauth]/options";
 import { NextRequest, NextResponse } from "next/server";
 import {
 	deleteAppointment,
+	getAppointmentsCount,
 	getDoctorAppointments,
 	getPatientAppointments,
 	patientAppointment,
@@ -17,6 +18,9 @@ export async function GET() {
 		case "Doctor":
 			const docApp = await getDoctorAppointments(user.user.id);
 			return NextResponse.json(docApp?.appointments);
+		case "Administrator":
+			const appCount = await getAppointmentsCount();
+			return NextResponse.json(appCount);
 		default:
 			return NextResponse.json(
 				"You are unauthorized to use this api endpoint"
