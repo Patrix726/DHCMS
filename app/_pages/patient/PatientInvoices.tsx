@@ -1,35 +1,27 @@
-import { options } from "@/app/api/auth/[...nextauth]/options";
+"use client";
 import { invoices } from "@/app/utils/db/invoice";
-import { getServerSession } from "next-auth";
 import { Fragment, ReactElement } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReceipt } from "@fortawesome/free-solid-svg-icons";
 import Button, { variants } from "@/app/_components/Buttons/Button";
-
-export default async function PatientPayment() {
-	const user = await getServerSession(options);
-	const res = await fetch(
-		`${process.env.NEXT_PUBLIC_BASE_URL}/api/patient/${user?.user.id}/invoices`
-	);
-	const {
-		dueInvoices,
-		paidInvoices,
-	}: { dueInvoices: invoices[]; paidInvoices: invoices[] } = await res.json();
-
+type props = {
+	dueInvoices: invoices[];
+	paidInvoices: invoices[];
+};
+export default function PatientPayment({ dueInvoices, paidInvoices }: props) {
 	return (
 		<main className="w-full mt-24 flex flex-col items-center gap-3 py-1 px-5">
 			<h1 className="text-2xl mb-5 w-full text-left sm:w-3/4 sm:text-4xl px-4 sm:px-0">
 				Due Payment
 			</h1>
 			<DueInvoices data={separateInvoices(dueInvoices)} />
-			{paidInvoices.length > 0 && (
-				<PaidInvoices paidInvoices={paidInvoices} />
-			)}
+			<PaidInvoices paidInvoices={paidInvoices} />
 		</main>
 	);
 }
 
 const PaidInvoices = ({ paidInvoices }: { paidInvoices: invoices[] }) => {
+	if (paidInvoices.length == 0) return;
 	return (
 		<div className="w-full sm:w-3/4 mb-10">
 			<h1 className="text-2xl sm:text-4xl mb-5 w-full text-left bg-orange-200 p-5">
