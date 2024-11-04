@@ -29,6 +29,9 @@ export async function createStaff({
 export async function getStaffRoles() {
 	return prisma.role.findMany();
 }
+export async function getTotalNumberOfStaff() {
+	return prisma.staff.count();
+}
 
 export type StaffData = Prisma.StaffGetPayload<{
 	select: {

@@ -139,6 +139,17 @@ export async function updateAppointment({
 		},
 	});
 }
+export async function getAppointmentsCount() {
+	const weekInMilliSeconds = 604800000;
+	const lastWeek = new Date(Date.now() - weekInMilliSeconds);
+	return prisma.appointment.count({
+		where: {
+			scheduledAt: {
+				gte: lastWeek,
+			},
+		},
+	});
+}
 
 export type patientAppointment = Prisma.AppointmentGetPayload<{
 	include: {
