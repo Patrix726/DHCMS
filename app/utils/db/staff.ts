@@ -32,6 +32,33 @@ export async function getStaffRoles() {
 export async function getTotalNumberOfStaff() {
 	return prisma.staff.count();
 }
+export async function getStaffProfile(id: string) {
+	return prisma.staff.findUnique({
+		where: {
+			id: id,
+		},
+		select: {
+			firstName: true,
+			middleName: true,
+			lastName: true,
+			birthDate: true,
+			department: {
+				select: {
+					name: true,
+				},
+			},
+			email: true,
+			emergencyContact: true,
+			emergencyContactMobileNo: true,
+			hireDate: true,
+			sex: true,
+			city: true,
+			region: true,
+			woreda: true,
+			username: true,
+		},
+	});
+}
 
 export type StaffData = Prisma.StaffGetPayload<{
 	select: {
