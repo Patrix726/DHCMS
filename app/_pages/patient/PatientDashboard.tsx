@@ -154,7 +154,11 @@ const generateComponents = (appointments: patientAppointment[]) => {
 					const diff = now.getTime() - datetime.getTime();
 					if (diff < presCur.duration) {
 						const prescription = (
-							<Prescription presCur={presCur} timeDiff={diff} />
+							<Prescription
+								presCur={presCur}
+								timeDiff={diff}
+								key={presCur.id}
+							/>
 						);
 						return [...presAcc, prescription];
 					}
@@ -171,7 +175,12 @@ const generateComponents = (appointments: patientAppointment[]) => {
 			}
 			if (datetime > now) {
 				const component = (
-					<Appointment app={cur} appDateTime={datetime} now={now} />
+					<Appointment
+						app={cur}
+						appDateTime={datetime}
+						now={now}
+						key={cur.id}
+					/>
 				);
 				return {
 					...acc,

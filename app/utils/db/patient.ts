@@ -1,7 +1,7 @@
 import prisma from "@/app/client";
 import { Prisma } from "@prisma/client";
 
-export async function getPatients({
+export function getPatients({
 	firstName,
 	middleName,
 	lastName,
@@ -47,7 +47,7 @@ export async function getPatients({
 		},
 	});
 }
-export async function getPatient(id: string) {
+export function getPatient(id: string) {
 	return prisma.patient.findUnique({
 		where: {
 			id: id,
@@ -103,7 +103,37 @@ export async function getPatient(id: string) {
 		},
 	});
 }
-export async function getPatientDueInvoices(id: string) {
+export function getProfile(id: string) {
+	return prisma.patient.findUnique({
+		where: {
+			id: id,
+		},
+		select: {
+			password: false,
+			email: true,
+			firstName: true,
+			middleName: true,
+			lastName: true,
+			birthDate: true,
+			mobileNumber: true,
+			sex: true,
+			occupation: true,
+			patientRecord: {
+				select: {
+					bloodType: true,
+					allergies: true,
+				},
+			},
+			region: true,
+			woreda: true,
+			kebele: true,
+			city: true,
+			emergencyContactName: true,
+			emergencyContactMobileNo: true,
+		},
+	});
+}
+export function getPatientDueInvoices(id: string) {
 	return prisma.invoice.findMany({
 		where: {
 			patient: { id: id },
@@ -115,7 +145,7 @@ export async function getPatientDueInvoices(id: string) {
 		},
 	});
 }
-export async function getPatientPaidInvoices(id: string) {
+export function getPatientPaidInvoices(id: string) {
 	return prisma.invoice.findMany({
 		where: {
 			patient: { id: id },
@@ -172,5 +202,30 @@ export type patient = Prisma.PatientGetPayload<{
 		};
 		patientRecord: true;
 		appointments: true;
+	};
+}>;
+export type patientProfile = Prisma.PatientGetPayload<{
+	select: {
+		password: false;
+		email: true;
+		firstName: true;
+		middleName: true;
+		lastName: true;
+		birthDate: true;
+		mobileNumber: true;
+		sex: true;
+		occupation: true;
+		patientRecord: {
+			select: {
+				bloodType: true;
+				allergies: true;
+			};
+		};
+		region: true;
+		woreda: true;
+		kebele: true;
+		city: true;
+		emergencyContactName: true;
+		emergencyContactMobileNo: true;
 	};
 }>;
