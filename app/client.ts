@@ -1,15 +1,21 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaNeon } from "@prisma/adapter-neon";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "../prisma/generated/client.js";
 
-const prismaClientSingleton = () => {
-	return new PrismaClient();
-};
+// In tests, prefer the standard PG adapter to avoid Neon WebSocket requirements
+// in Node test environments.
+const usePgAdapter =
+	process.env.NODE_ENV === "test" || process.env.NODE_ENV === "development";
 
-declare const globalThis: {
-	prismaGlobal: ReturnType<typeof prismaClientSingleton>;
-} & typeof global;
+const adapter = usePgAdapter
+	? new PrismaPg({
+			connectionString: process.env.DATABASE_URL,
+		})
+	: new PrismaNeon({
+			connectionString: process.env.DATABASE_URL,
+		});
 
-const prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
+const prisma = new PrismaClient({ adapter });
 
+export { prisma };
 export default prisma;
-
-if (process.env.NODE_ENV !== "production") globalThis.prismaGlobal = prisma;
